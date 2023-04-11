@@ -1,12 +1,16 @@
-import React from "react";
-import Example from "./components/Example/example";
+import { AnnouncementProvider } from "./contexts/Announcement";
+import { UserProvider } from "./contexts/User";
+import RoutesMain from "./routes";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>;
-      <Example />
-    </div>
+    <>
+      <UserProvider>
+        <AnnouncementProvider>
+          <RoutesMain />;
+        </AnnouncementProvider>
+      </UserProvider>
+    </>
   );
 }
 

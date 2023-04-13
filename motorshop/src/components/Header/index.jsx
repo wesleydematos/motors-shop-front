@@ -41,6 +41,9 @@ export default function Header() {
             </Link>
             <button
               type="button"
+              onClick={() => {
+                alert("Criem a função logout");
+              }}
               className="flex flex-row text-grey-900 cursor-pointer pt-3 tablet:pt-0 tablet:pb-3 hover:text-purple-300"
             >
               Logout

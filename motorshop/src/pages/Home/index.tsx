@@ -1,4 +1,5 @@
 import CarCard from "../../components/CarCard";
+import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 
 export default function Home() {
@@ -46,6 +47,7 @@ export default function Home() {
           <CarCard car={car} key={car.id}></CarCard>
         ))}
       </ul>
+      <Footer />
     </div>
   );
 }

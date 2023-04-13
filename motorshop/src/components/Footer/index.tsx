@@ -1,4 +1,4 @@
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/logo.png";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 
 export default function Footer() {

@@ -1,7 +1,7 @@
 export default function CarCard({ car }: any) {
   return (
     <>
-      <li>
+      <li className="w-[370px]">
         <div className="flex justify-center w-full bg-grey-500 h-40 ">
           <img src={car.img} alt={car.name} className="w-64" />
         </div>

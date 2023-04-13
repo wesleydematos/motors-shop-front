@@ -1,8 +1,8 @@
 export default function CarCard({ car }: any) {
   return (
     <>
-      <li className="w-96 h-80">
-        <div className="flex justify-center w-full bg-grey-500 h-40">
+      <li>
+        <div className="flex justify-center w-full bg-grey-500 h-40 ">
           <img src={car.img} alt={car.name} className="w-64" />
         </div>
         <div className="flex flex-col gap-2 mt-2">

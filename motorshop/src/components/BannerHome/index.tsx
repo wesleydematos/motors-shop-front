@@ -1,6 +1,6 @@
 export default function BannerHome() {
   return (
-    <section className="w-full h-[35.625rem] relative overflow-hidden">
+    <section className="w-full h-[35.625rem] relative top-0 left-0 overflow-hidden z-0 mt-20">
       <img
         src="https://i.imgur.com/hTMenAw.jpeg"
         alt=""

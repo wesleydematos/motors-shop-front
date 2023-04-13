@@ -7,7 +7,7 @@ function App() {
     <>
       <UserProvider>
         <AnnouncementProvider>
-          <RoutesMain />;
+          <RoutesMain />
         </AnnouncementProvider>
       </UserProvider>
     </>

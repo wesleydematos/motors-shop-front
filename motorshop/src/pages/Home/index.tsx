@@ -2,9 +2,8 @@ import { useState } from "react";
 import BannerHome from "../../components/BannerHome";
 import CarCard from "../../components/CarCard";
 import FilterHome from "../../components/FilterHome";
-import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-
+import Footer from "../../components/Footer";
 
 export default function Home() {
   const [isOpenFilter, setIsOpenFIlter] = useState(false);
@@ -79,6 +78,7 @@ export default function Home() {
   ];
   return (
     <>
+      <Header />
       <BannerHome />
       {isOpenFilter && (
         <div className="absolute top-0 left-0 bg-whiteFixed py-5 px-4 w-full">
@@ -110,18 +110,7 @@ export default function Home() {
           </button>
         </div>
       </main>
-    </>
-
-    <div className="flex flex-col">
-      <Header />
-
-      <ul className="flex gap-4 mt-36">
-        {cars.map((car) => (
-          <CarCard car={car} key={car.id}></CarCard>
-        ))}
-      </ul>
       <Footer />
-    </div>
-
+    </>
   );
 }

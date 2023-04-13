@@ -4,7 +4,7 @@ import { ChevronUpIcon } from "@heroicons/react/20/solid";
 export default function Footer() {
   return (
     <>
-      <footer className="w-full h-80 laptop:h-36 bg-grey-1100 flex flex-col items-center laptop:flex laptop:flex-row laptop:place-content-around">
+      <footer className="w-full h-80 laptop:h-36 bg-grey-1100 flex flex-col items-center laptop:flex laptop:flex-row laptop:place-content-around mt-16">
         <div className="w-1/3 h-full flex items-center justify-center">
           <img src={logo} alt="logo"></img>
         </div>

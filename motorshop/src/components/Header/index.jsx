@@ -10,7 +10,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="flex justify-between items-center  bg-whiteFixed px-4 tablet:px-16 shadow-md w-full h-20 fixed top-0 left-0 ">
+    <header className="flex justify-between items-center  bg-whiteFixed px-4 tablet:px-16 shadow-md w-full h-20 fixed top-0 left-0  z-20">
       <div className="w-36 h-6">
         <img src={logo} alt="logo" />
       </div>
@@ -51,7 +51,7 @@ export default function Header() {
           </div>
         ) : (
           <nav
-            className={`tablet:flex-row tablet:items-center tablet:pb-0 tablet:static bg-white tablet:z-auto tablet:pl-0 tablet:w-auto tablet:border-l-2 tablet:border-grey-400 tablet:bg-whiteFixed h-28 tablet:h-20 pb-12 absolute z-[-1] left-0 w-full pl-9 transition-all duration-500 ease-in flex flex-col bg-grey-200  ${
+            className={`tablet:flex-row tablet:items-center tablet:pb-0 tablet:static bg-white tablet:z-auto tablet:pl-0 tablet:w-auto tablet:border-l-2 tablet:border-grey-400 tablet:bg-whiteFixed h-28 tablet:h-20 pb-12 absolute z-[-1] left-0 w-full pl-9 transition-all duration-500 ease-in flex flex-col bg-grey-200 ${
               open ? "top-20 " : "top-[-490px]"
             }`}
           >

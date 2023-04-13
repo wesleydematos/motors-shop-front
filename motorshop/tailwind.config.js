@@ -42,6 +42,11 @@ module.exports = {
         100: "#FDFDFD",
       },
 
+      black: {
+        400: "#000000",
+        "opacity-30": "rgba(0, 0, 0, 0.30)",
+      },
+
       alert: {
         300: "#CD2B31",
         200: "#FDD8D8",

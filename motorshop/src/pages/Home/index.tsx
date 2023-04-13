@@ -1,3 +1,4 @@
+import BannerHome from "../../components/BannerHome";
 import CarCard from "../../components/CarCard";
 
 export default function Home() {
@@ -37,10 +38,13 @@ export default function Home() {
     },
   ];
   return (
-    <ul className="flex gap-4">
-      {cars.map((car) => (
-        <CarCard car={car} key={car.id}></CarCard>
-      ))}
-    </ul>
+    <>
+      <BannerHome />
+      {/* <ul className="flex gap-4">
+        {cars.map((car) => (
+          <CarCard car={car} key={car.id}></CarCard>
+        ))}
+      </ul> */}
+    </>
   );
 }

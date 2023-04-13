@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { IoClose } from "react-icons/io5";
 import BannerHome from "../../components/BannerHome";
 import CarCard from "../../components/CarCard";
 import FilterHome from "../../components/FilterHome";
@@ -81,11 +82,11 @@ export default function Home() {
       <Header />
       <BannerHome />
       {isOpenFilter && (
-        <div className="absolute top-0 left-0 bg-whiteFixed py-5 px-4 w-full">
-          <div className="flex justify-between">
+        <div className="absolute top-0 left-0 bg-whiteFixed py-5 px-4 w-full mt-20">
+          <div className="flex justify-between mb-8">
             <p>Filtro</p>
             <button type="button" onClick={() => setIsOpenFIlter(false)}>
-              x
+              <IoClose size={24} className="text-grey-800" />
             </button>
           </div>
           <FilterHome />

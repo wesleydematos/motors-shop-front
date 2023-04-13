@@ -103,12 +103,12 @@ export default function FilterHome() {
             <input
               type="number"
               placeholder="Mínima"
-              className="bg-grey-700 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
+              className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
             />
             <input
               type="number"
               placeholder="Máxima"
-              className="bg-grey-700 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
+              className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
             />
           </div>
         </div>
@@ -119,12 +119,12 @@ export default function FilterHome() {
             <input
               type="number"
               placeholder="Mínimo"
-              className="bg-grey-700 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
+              className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
             />
             <input
               type="number"
               placeholder="Máximo"
-              className="bg-grey-700 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
+              className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
             />
           </div>
         </div>

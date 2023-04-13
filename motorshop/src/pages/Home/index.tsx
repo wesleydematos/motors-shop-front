@@ -2,6 +2,9 @@ import { useState } from "react";
 import BannerHome from "../../components/BannerHome";
 import CarCard from "../../components/CarCard";
 import FilterHome from "../../components/FilterHome";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+
 
 export default function Home() {
   const [isOpenFilter, setIsOpenFIlter] = useState(false);
@@ -108,5 +111,17 @@ export default function Home() {
         </div>
       </main>
     </>
+
+    <div className="flex flex-col">
+      <Header />
+
+      <ul className="flex gap-4 mt-36">
+        {cars.map((car) => (
+          <CarCard car={car} key={car.id}></CarCard>
+        ))}
+      </ul>
+      <Footer />
+    </div>
+
   );
 }

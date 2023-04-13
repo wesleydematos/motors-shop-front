@@ -1,7 +1,14 @@
 import { ReactNode } from "react";
 
 export interface iUserContext {
-  // colocar todas tipagens das funcões que vao ser exportadas no contexto
+  user: iUser;
+}
+
+export interface iUser {
+  email: string;
+  password?: string;
+  name: string;
+  // ...
 }
 
 export interface iUserContextProps {

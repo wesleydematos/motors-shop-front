@@ -1,4 +1,5 @@
 import CarCard from "../../components/CarCard";
+import Header from "../../components/Header";
 
 export default function Home() {
   const cars = [
@@ -37,10 +38,14 @@ export default function Home() {
     },
   ];
   return (
-    <ul className="flex gap-4">
-      {cars.map((car) => (
-        <CarCard car={car} key={car.id}></CarCard>
-      ))}
-    </ul>
+    <div className="flex flex-col">
+      <Header />
+
+      <ul className="flex gap-4 mt-36">
+        {cars.map((car) => (
+          <CarCard car={car} key={car.id}></CarCard>
+        ))}
+      </ul>
+    </div>
   );
 }

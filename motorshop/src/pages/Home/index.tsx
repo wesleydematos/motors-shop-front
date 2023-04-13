@@ -1,4 +1,5 @@
 import CarCard from "../../components/CarCard";
+import Footer from "../../components/Footer";
 
 export default function Home() {
   const cars = [
@@ -37,10 +38,13 @@ export default function Home() {
     },
   ];
   return (
-    <ul className="flex gap-4">
-      {cars.map((car) => (
-        <CarCard car={car} key={car.id}></CarCard>
-      ))}
-    </ul>
+    <>
+      {/* <ul className="flex gap-4">
+        {cars.map((car) => (
+          <CarCard car={car} key={car.id}></CarCard>
+        ))}
+      </ul> */}
+      <Footer />
+    </>
   );
 }

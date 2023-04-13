@@ -14,7 +14,12 @@ export default function Footer() {
           </p>
         </div>
         <div className="w-1/3 h-full flex items-center justify-center">
-          <button className="w-14 h-14 rounded flex justify-center items-center bg-grey-1000 hover:bg-grey-900 text-grey-100 duration-500">
+          <button
+            className="w-14 h-14 rounded flex justify-center items-center bg-grey-1000 hover:bg-grey-900 text-grey-100 duration-500"
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            }}
+          >
             <ChevronUpIcon className="w-6 h-6 " />
           </button>
         </div>

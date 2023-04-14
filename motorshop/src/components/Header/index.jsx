@@ -64,7 +64,6 @@ export default function Header() {
             <Link
               to="/register"
               className="font-['Inter, sans-serif'] tex-base font-semibold pt-4 tablet:border-2 tablet:border-grey-400 tablet:px-5  tablet:h-12	tablet:pt-2.5 hover:text-purple-300"
-              text-center
             >
               Cadastrar
             </Link>

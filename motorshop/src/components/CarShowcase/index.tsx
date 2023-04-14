@@ -36,7 +36,7 @@ export default function CarShowcase() {
       price: 1100000.0,
     },
     {
-      id: 3,
+      id: 4,
       img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
       name: "Corvette Z06",
       description:
@@ -47,7 +47,7 @@ export default function CarShowcase() {
       price: 1100000.0,
     },
     {
-      id: 3,
+      id: 5,
       img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
       name: "Corvette Z06",
       description:
@@ -58,6 +58,7 @@ export default function CarShowcase() {
       price: 1100000.0,
     },
   ];
+
   return (
     <ul className="flex h-[500px] gap-6 mt-15 overflow-x-auto laptop:flex-wrap laptop:w-full laptop:h-max laptop:overflow-hidden">
       {cars.map((car) => (

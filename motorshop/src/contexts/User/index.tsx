@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import {
@@ -40,12 +41,12 @@ export const UserProvider = ({ children }: iUserContextProps) => {
       localStorage.setItem("@userID-MotorsShop", JSON.stringify(data.user.id));
 
       setUser(data.user);
+
+      toast.success("Login efetuado com sucesso!");
       // await getMyProfile();
       navigate("/profile");
-    } catch (error) {
-      //alterar alert pra toast
-      console.log(error);
-      alert("Falha ao efetuar o login");
+    } catch (error: any) {
+      toast.error(error.message || "Erro ao efetuar o login!");
     }
   }
 

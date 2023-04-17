@@ -2,13 +2,21 @@ import { ReactNode } from "react";
 
 export interface iUserContext {
   user: iUser;
+  handleLogin(data: iLogin): Promise<void>;
 }
 
 export interface iUser {
-  email: string;
-  password?: string;
+  id: string;
   name: string;
-  // ...
+  email: string;
+  cpf: string;
+  number: string;
+  dateBirth: string;
+  description: string;
+  isAdvertiser: boolean;
+  isActive: boolean;
+  updatedAt: Date;
+  createdAt: Date;
 }
 
 export interface iUserContextProps {
@@ -16,6 +24,11 @@ export interface iUserContextProps {
 }
 
 export interface iLogin {
-  user: string;
+  email: string;
   password: string;
+}
+
+export interface iLoginResponse {
+  token: string;
+  user: iUser;
 }

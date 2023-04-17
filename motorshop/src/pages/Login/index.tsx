@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import { useUserContext } from "../../contexts/User";
 import { iLogin } from "../../contexts/User/types";
 import { LoginSchema } from "../../schemas/loginSchema";
+import { IoMdAlert } from "react-icons/io";
 
 export default function Login() {
   const {
@@ -33,22 +34,40 @@ export default function Login() {
             <div className="flex flex-col">
               <label htmlFor="user" className="text-sm mb-2 font-medium">
                 Email
+                {errors.email && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.email.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 type="email"
                 id="user"
                 placeholder="Digitar email"
-                className="text-base mb-7"
+                className={`text-base mb-7 ${
+                  errors.email && "border-2 border-alert-300"
+                }`}
                 {...register("email")}
               />
+
               <label htmlFor="password" className="text-sm mb-2 font-medium">
                 Senha
+                {errors.password && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.password.message}</p>
+                  </div>
+                )}
               </label>
+
               <input
                 type="password"
                 id="password"
                 placeholder="Digitar senha"
-                className="text-base"
+                className={`text-base ${
+                  errors.password && "border-2 border-alert-300"
+                }`}
                 {...register("password")}
               />
             </div>

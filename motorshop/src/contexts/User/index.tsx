@@ -16,20 +16,20 @@ export const UserProvider = ({ children }: iUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<iUser>({} as iUser);
 
-  async function getMyProfile() {
-    const userId = JSON.parse(localStorage.getItem("@userID-MotorsShop") + "");
-    const token = localStorage.getItem("@Token-MotorsShop");
-    api.defaults.headers.common.authorization = `Bearer ${token}`;
+  // async function getMyProfile() {
+  //   const userId = JSON.parse(localStorage.getItem("@userID-MotorsShop") + "");
+  //   const token = localStorage.getItem("@Token-MotorsShop");
+  //   api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-    try {
-      const { data } = await api.get<iUser>(`/users/${userId}`);
-      setUser(data);
-    } catch (error) {
-      localStorage.clear();
+  //   try {
+  //     const { data } = await api.get<iUser>(`/users/${userId}`);
+  //     setUser(data);
+  //   } catch (error) {
+  //     localStorage.clear();
 
-      navigate("/login");
-    }
-  }
+  //     navigate("/login");
+  //   }
+  // }
 
   async function handleLogin(body: iLogin) {
     try {
@@ -46,7 +46,8 @@ export const UserProvider = ({ children }: iUserContextProps) => {
       // await getMyProfile();
       navigate("/profile");
     } catch (error: any) {
-      toast.error(error.message || "Erro ao efetuar o login!");
+      console.error(error.message);
+      toast.error("Erro ao efetuar o login!");
     }
   }
 

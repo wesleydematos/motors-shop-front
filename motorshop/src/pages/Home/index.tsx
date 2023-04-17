@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import BannerHome from "../../components/BannerHome";
-import CarCard from "../../components/CarCard";
 import FilterHome from "../../components/FilterHome";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";

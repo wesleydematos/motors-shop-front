@@ -15,6 +15,7 @@ const UserContext = createContext<iUserContext>({} as iUserContext);
 export const UserProvider = ({ children }: iUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<iUser>({} as iUser);
+  const [isAdvertiser, setIsAdvertiser] = useState(false);
 
   // async function getMyProfile() {
   //   const userId = JSON.parse(localStorage.getItem("@userID-MotorsShop") + "");
@@ -52,7 +53,9 @@ export const UserProvider = ({ children }: iUserContextProps) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, handleLogin }}>
+    <UserContext.Provider
+      value={{ user, handleLogin, isAdvertiser, setIsAdvertiser }}
+    >
       {children}
     </UserContext.Provider>
   );

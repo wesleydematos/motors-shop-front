@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 export interface iUserContext {
   user: iUser;
   handleLogin(data: iLogin): Promise<void>;
+  isAdvertiser: boolean;
+  setIsAdvertiser: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface iUser {

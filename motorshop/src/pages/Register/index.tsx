@@ -1,10 +1,20 @@
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useUserContext } from "../../contexts/User";
+import { RegisterSchema } from "../../schemas/registerSchema";
+import { IoMdAlert } from "react-icons/io";
+import { iRegister } from "../../contexts/User/types";
 
 export default function Register() {
-  const { isAdvertiser, setIsAdvertiser } = useUserContext();
-  console.log(isAdvertiser);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iRegister>({ resolver: yupResolver(RegisterSchema) });
+
+  const { isAdvertiser, setIsAdvertiser, handleRegister } = useUserContext();
 
   return (
     <>
@@ -13,7 +23,10 @@ export default function Register() {
           <Header />
         </div>
         <main className="mt-32 flex flex-col">
-          <form className="font-['Inter, sans-serif'] felx flex-col w-11/12 tablet:w-2/4 laptop:w-1/4 py-11 px-7 self-center bg-grey-100">
+          <form
+            onSubmit={handleSubmit(handleRegister)}
+            className="font-['Inter, sans-serif'] felx flex-col w-11/12 tablet:w-2/4 laptop:w-1/4 py-11 px-7 self-center bg-grey-100"
+          >
             <h1 className="font-['Lexend, sans-serif'] text-2xl font-medium mb-8">
               Cadastro
             </h1>
@@ -22,63 +35,105 @@ export default function Register() {
 
             <div className="flex flex-col">
               <label className="text-sm mb-2 font-medium" htmlFor="name">
-                Nome
+                Nome{" "}
+                {errors.name && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.name.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 className={`text-base mb-4`}
                 type="text"
                 id="name"
                 placeholder="Ex: Vagner Love"
+                {...register("name")}
               />
 
               <label className="text-sm mb-2 font-medium" htmlFor="email">
                 Email
+                {errors.email && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.email.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 type="email"
                 id="email"
                 placeholder="Ex: example@mail.com"
                 className={`text-base mb-4`}
+                {...register("email")}
               />
 
               <label className="text-sm mb-2 font-medium" htmlFor="cpf">
                 CPF
+                {errors.cpf && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.cpf.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 className={`text-base mb-4`}
                 type="text"
                 id="cpf"
                 placeholder="Ex: 000.000.000-00"
+                {...register("cpf")}
               />
 
               <label className="text-sm mb-2 font-medium" htmlFor="phoneNumber">
                 Celular
+                {errors.phoneNumber && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.phoneNumber.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 className={`text-base mb-4`}
                 type="text"
                 id="phoneNumber"
                 placeholder="(DDD) 90000-0000"
+                {...register("phoneNumber")}
               />
 
               <label className="text-sm mb-2 font-medium" htmlFor="dateBirth">
                 Data de nascimento
+                {errors.dateBirth && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.dateBirth.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 className={`text-base mb-4`}
                 type="text"
                 id="dateBirth"
                 placeholder="00/00/00"
+                {...register("dateBirth")}
               />
 
               <label className="text-sm mb-2 font-medium" htmlFor="description">
                 Descrição
+                {errors.description && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.description.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 className={`text-base mb-4`}
                 type="text"
                 id="description"
                 placeholder="Digitar descrição"
+                {...register("description")}
               />
             </div>
 
@@ -87,75 +142,151 @@ export default function Register() {
             <div className="flex flex-col">
               <label className="text-sm mb-2 font-medium" htmlFor="zipCode">
                 CEP
+                {errors.zip_code && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.zip_code.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 className={`text-base mb-4`}
                 type="text"
                 id="zipCode"
                 placeholder="00000-000"
+                {...register("zip_code")}
               />
 
               <div className="flex justify-evenly w-full gap-1">
                 <div className="flex flex-col w-3/6">
-                  <label className="text-sm mb-2 font-medium" htmlFor="state">
+                  <label
+                    className={`text-sm  ${
+                      errors.city && errors.state
+                        ? "mb-2"
+                        : errors.city && !errors.state
+                        ? "mb-7"
+                        : "mb-2"
+                    }`}
+                    htmlFor="state"
+                  >
                     Estado
+                    {errors.state && (
+                      <div className="flex flex-row text-alert-300 gap-2 text-center">
+                        <IoMdAlert />
+                        <p>{errors.state.message}</p>
+                      </div>
+                    )}
                   </label>
                   <input
                     className={`text-base mb-4`}
                     type="text"
                     id="state"
-                    placeholder="Digitar Estado"
+                    placeholder="Ex: SP"
+                    maxLength={2}
+                    {...register("state")}
                   />
                 </div>
 
                 <div className="flex flex-col w-3/6">
-                  <label className="text-sm mb-2 font-medium" htmlFor="city">
+                  <label
+                    className={`text-sm  ${
+                      errors.state && errors.city
+                        ? "mb-2"
+                        : errors.state && !errors.city
+                        ? "mb-7"
+                        : "mb-2"
+                    }`}
+                    htmlFor="city"
+                  >
                     Cidade
+                    {errors.city && (
+                      <div className="flex flex-row text-alert-300 gap-2 text-center">
+                        <IoMdAlert />
+                        <p>{errors.city.message}</p>
+                      </div>
+                    )}
                   </label>
                   <input
                     className={`text-base mb-4`}
                     type="text"
                     id="city"
-                    placeholder="Digitar Cidade"
+                    placeholder="Ex: São Paulo"
+                    {...register("city")}
                   />
                 </div>
               </div>
 
               <label className="text-sm mb-2 font-medium" htmlFor="street">
                 Rua
+                {errors.street && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.street.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 className={`text-base mb-4`}
                 type="text"
                 id="street"
                 placeholder="Digitar rua"
+                {...register("street")}
               />
 
               <div className="flex justify-evenly w-full gap-1">
                 <div className="flex flex-col w-3/6">
-                  <label className="text-sm mb-2 font-medium" htmlFor="number">
+                  <label
+                    className={`text-sm  ${
+                      errors.number && errors.complement
+                        ? "mb-2"
+                        : errors.complement && !errors.number
+                        ? "mb-7"
+                        : "mb-2"
+                    }`}
+                    htmlFor="number"
+                  >
                     Numero
+                    {errors.number && (
+                      <div className="flex flex-row text-alert-300 gap-2 text-center">
+                        <IoMdAlert />
+                        <p>{errors.number.message}</p>
+                      </div>
+                    )}
                   </label>
                   <input
                     className={`text-base mb-4`}
                     type="text"
                     id="number"
                     placeholder="Digitar numero"
+                    {...register("number")}
                   />
                 </div>
 
                 <div className="flex flex-col w-3/6">
                   <label
-                    className="text-sm mb-2 font-medium"
+                    className={`text-sm  ${
+                      errors.complement && errors.number
+                        ? "mb-2"
+                        : errors.number && !errors.complement
+                        ? "mb-7"
+                        : "mb-2"
+                    }`}
                     htmlFor="complement"
                   >
                     Complemento
+                    {errors.complement && (
+                      <div className="flex flex-row text-alert-300 gap-2 text-center">
+                        <IoMdAlert />
+                        <p>{errors.complement.message}</p>
+                      </div>
+                    )}
                   </label>
                   <input
                     className={`text-base mb-4`}
                     type="text"
                     id="complement"
                     placeholder="Ex: apartamento"
+                    {...register("complement")}
                   />
                 </div>
               </div>
@@ -197,12 +328,19 @@ export default function Register() {
             <div className="flex flex-col mb-7">
               <label className="text-sm mb-2 font-medium" htmlFor="password">
                 Senha
+                {errors.password && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.password.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 className={`text-base mb-4`}
                 type="password"
                 id="password"
                 placeholder="Digitar senha"
+                {...register("password")}
               />
 
               <label
@@ -210,12 +348,19 @@ export default function Register() {
                 htmlFor="passwordConf"
               >
                 Confirmar senha
+                {errors.passwordConfirmation && (
+                  <div className="flex flex-row text-alert-300 gap-2 text-center">
+                    <IoMdAlert />
+                    <p>{errors.passwordConfirmation.message}</p>
+                  </div>
+                )}
               </label>
               <input
                 className={`text-base mb-4`}
                 type="password"
                 id="passwordConf"
                 placeholder="Digitar senha"
+                {...register("passwordConfirmation")}
               />
             </div>
 

@@ -21,7 +21,7 @@ export default function CarModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button onClick={onOpen}>Criar Anúncio</Button>
+      <Button className="text-brand-400 font-semibold mt-10 px-6 py-3 border border-brand-400 rounded" onClick={onOpen}>Criar Anúncio</Button>
 
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
         <ModalOverlay />

@@ -5,7 +5,10 @@ export interface iUserContext {
   handleLogin(data: iLogin): Promise<void>;
   isAdvertiser: boolean;
   setIsAdvertiser: React.Dispatch<React.SetStateAction<boolean>>;
-  handleRegister(data: any): Promise<void>;
+  handleRegister(data: iRegister): Promise<void>;
+  setIsRegister: React.Dispatch<React.SetStateAction<boolean>>;
+  isRegister: boolean;
+  logout(): void;
 }
 
 export interface iUser {

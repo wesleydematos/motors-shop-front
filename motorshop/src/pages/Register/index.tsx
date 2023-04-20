@@ -6,6 +6,7 @@ import { useUserContext } from "../../contexts/User";
 import { RegisterSchema } from "../../schemas/registerSchema";
 import { IoMdAlert } from "react-icons/io";
 import { iRegister } from "../../contexts/User/types";
+import ModalRegister from "../../components/ModalRegister";
 
 export default function Register() {
   const {
@@ -14,11 +15,13 @@ export default function Register() {
     formState: { errors },
   } = useForm<iRegister>({ resolver: yupResolver(RegisterSchema) });
 
-  const { isAdvertiser, setIsAdvertiser, handleRegister } = useUserContext();
+  const { isAdvertiser, setIsAdvertiser, handleRegister, isRegister } =
+    useUserContext();
 
   return (
     <>
       <div className="min-h-screen flex flex-col justify-between bg-grey-300">
+        {isRegister && <ModalRegister />}
         <div>
           <Header />
         </div>

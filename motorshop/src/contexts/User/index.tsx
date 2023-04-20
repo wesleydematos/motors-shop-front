@@ -17,6 +17,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<iUser>({} as iUser);
   const [isAdvertiser, setIsAdvertiser] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
 
   async function handleRegister(data: iRegister) {
     const userData = {
@@ -43,8 +44,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
 
     try {
       await api.post("/users", requestData);
-      toast.success("Conta criada com sucesso");
-      navigate("/login");
+      setIsRegister(true);
     } catch (error) {
       toast.error("Falha ao criar a conta");
       console.log(error);
@@ -70,6 +70,12 @@ export const UserProvider = ({ children }: iUserContextProps) => {
     }
   }
 
+  function logout(): void {
+    localStorage.clear();
+    setUser({} as iUser);
+    navigate("/");
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -78,6 +84,9 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         isAdvertiser,
         setIsAdvertiser,
         handleRegister,
+        setIsRegister,
+        isRegister,
+        logout,
       }}
     >
       {children}

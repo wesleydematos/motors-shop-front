@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 
 export default function Header() {
-  const { user } = useUserContext();
+  const { user, logout } = useUserContext();
   const [open, setOpen] = useState(false);
 
   return (
@@ -42,7 +42,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => {
-                alert("Criem a função logout");
+                logout();
               }}
               className="flex flex-row text-grey-900 cursor-pointer pt-3 tablet:pt-0 tablet:pb-3 hover:text-purple-300"
             >

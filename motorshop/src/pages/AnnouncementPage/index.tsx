@@ -13,12 +13,16 @@ export default function AnnouncementPage() {
         <Header />
         <div>
           <div className="h-[36rem] mt-20 bg-brand-400" />
-          <div className="w-11/12 flex flex-col desktop:flex-row gap-[20px] justify-center mx-auto -mt-[33.5rem]">
-            <div className="w-[46rem] flex flex-wrap justify-evenly top-[120px]">
-              <section className="w-[45rem] h-[23rem] bg-grey-100 rounded flex items-center justify-center">
-                <img src={car} alt="Car View" className="w-[27rem] h-64" />
+          <div className="w-11/12 flex flex-col desktop:flex-row gap-[20px] justify-center items-center desktop:items-start mx-auto -mt-[33.5rem]">
+            <div className="w-[46rem] flex flex-col justify-evenly items-center top-[120px]">
+              <section className="w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[45rem] h-[23rem] bg-grey-100 rounded flex items-center justify-center">
+                <img
+                  src={car}
+                  alt="Car View"
+                  className="w-[18.5rem] laptop:w-[27rem] h-[12rem] laptop:h-64"
+                />
               </section>
-              <section className="w-[45rem] h-60 bg-grey-100 rounded flex justify-center mt-5">
+              <section className="w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[45rem] h-60 bg-grey-100 rounded flex justify-center mt-5">
                 <div className="w-4/5 flex flex-col justify-evenly">
                   <h2 className="font-lexend font-semibold text-xl text-grey-1000">
                     Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200
@@ -41,7 +45,7 @@ export default function AnnouncementPage() {
                   </button>
                 </div>
               </section>
-              <section className="w-[45rem] h-56 bg-grey-100 rounded flex justify-center mt-5">
+              <section className="w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[45rem] h-56 bg-grey-100 rounded flex justify-center mt-5">
                 <div className="w-4/5 flex flex-col justify-evenly">
                   <h2 className="font-lexend font-semibold text-xl text-grey-1000">
                     Descrição
@@ -56,13 +60,13 @@ export default function AnnouncementPage() {
                 </div>
               </section>
             </div>
-            <div className="w-[27rem] flex flex-wrap justify-evenly top-[120px]">
-              <section className="w-[27rem] h-96 bg-grey-100 rounded flex flex-col items-center justify-center">
-                <div className="w-4/5 h-full flex flex-col justify-evenly">
+            <div className="w-[46rem] desktop:w-[27rem] flex flex-col justify-evenly items-center top-[120px]">
+              <section className="w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[27rem] h-96 bg-grey-100 rounded flex flex-col items-center justify-center">
+                <div className="w-4/5 h-full flex flex-col justify-evenly items-center desktop:items-start">
                   <p className="font-lexend font-semibold text-xl text-grey-1000 ps-1">
                     Fotos
                   </p>
-                  <div className="w-[22rem] h-60 flex flex-wrap justify-evenly items-center">
+                  <div className="w-[23rem] h-60 flex flex-wrap justify-evenly items-center">
                     <CarPhoto />
                     <CarPhoto />
                     <CarPhoto />
@@ -72,7 +76,7 @@ export default function AnnouncementPage() {
                   </div>
                 </div>
               </section>
-              <section className="w-[27rem] h-[25rem] bg-grey-100 rounded flex flex-col items-center justify-center mt-5 text-center">
+              <section className="w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[27rem] h-[25rem] bg-grey-100 rounded flex flex-col items-center justify-center mt-5 text-center">
                 <img
                   className="w-28 h-28 rounded-full"
                   src="https://images.stylight.net/image/upload/t_web_post_500x667/q_auto,f_auto/post-c798e472ed3fa9d95f35a0aa8a04c5410f22ca7062fd77278b8fe97c.jpg"

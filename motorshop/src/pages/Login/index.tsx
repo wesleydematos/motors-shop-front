@@ -26,7 +26,7 @@ export default function Login() {
         <main className="mt-32 flex flex-col ">
           <form
             onSubmit={handleSubmit(handleLogin)}
-            className="font-['Inter, sans-serif'] felx flex-col w-11/12 tablet:w-1/4 py-11 px-7 self-center bg-grey-100"
+            className="font-['Inter, sans-serif'] felx flex-col w-11/12 tablet:w-2/4 desktop:w-1/4 py-11 px-7 self-center bg-grey-100"
           >
             <h1 className="font-['Lexend, sans-serif'] text-2xl font-medium mb-8">
               Login
@@ -76,7 +76,7 @@ export default function Login() {
             </p>
             <button
               type="submit"
-              className="bg-brand-400 text-whiteFixed mt-5 h-12 w-full text-base font-semibold"
+              className="bg-brand-400 text-whiteFixed mt-5 h-12 w-full text-base font-semibold hover:bg-brand-300"
             >
               Entrar
             </button>

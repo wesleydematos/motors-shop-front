@@ -5,6 +5,7 @@ import { api } from "../../services/api";
 import {
   iLogin,
   iLoginResponse,
+  iRegister,
   iUser,
   iUserContext,
   iUserContextProps,
@@ -15,6 +16,8 @@ const UserContext = createContext<iUserContext>({} as iUserContext);
 export const UserProvider = ({ children }: iUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<iUser>({} as iUser);
+  const [isAdvertiser, setIsAdvertiser] = useState(false);
+
 
   useEffect(() => {
     setUser({
@@ -38,15 +41,39 @@ export const UserProvider = ({ children }: iUserContextProps) => {
   //   const token = localStorage.getItem("@Token-MotorsShop");
   //   api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-  //   try {
-  //     const { data } = await api.get<iUser>(`/users/${userId}`);
-  //     setUser(data);
-  //   } catch (error) {
-  //     localStorage.clear();
+  async function handleRegister(data: iRegister) {
+    const userData = {
+      name: data.name,
+      email: data.email,
+      cpf: data.cpf,
+      number: data.phoneNumber,
+      dateBirth: data.dateBirth,
+      description: data.description,
+      password: data.password,
+      isAdvertiser: isAdvertiser,
+    };
 
-  //     navigate("/login");
-  //   }
-  // }
+
+    const addressData = {
+      zip_code: data.zip_code,
+      state: data.state,
+      city: data.city,
+      street: data.street,
+      number: data.number,
+      complement: data.complement,
+    };
+
+    const requestData = { ...userData, address: { ...addressData } };
+
+    try {
+      await api.post("/users", requestData);
+      toast.success("Conta criada com sucesso");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Falha ao criar a conta");
+      console.log(error);
+    }
+  }
 
   async function handleLogin(body: iLogin) {
     try {
@@ -60,7 +87,6 @@ export const UserProvider = ({ children }: iUserContextProps) => {
       setUser(data.user);
 
       toast.success("Login efetuado com sucesso!");
-      // await getMyProfile();
       navigate("/profile");
     } catch (error: any) {
       console.error(error.message);
@@ -69,7 +95,15 @@ export const UserProvider = ({ children }: iUserContextProps) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, handleLogin }}>
+    <UserContext.Provider
+      value={{
+        user,
+        handleLogin,
+        isAdvertiser,
+        setIsAdvertiser,
+        handleRegister,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

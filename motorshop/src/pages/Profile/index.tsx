@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useUserContext } from "../../contexts/User";
 import CardCar from "./CardCar";
+import CarModal from "../../components/CarModal";
+import { ContextModal } from "../../contexts/ModalContext";
+import { Button } from "@chakra-ui/button";
 
 export default function Profile() {
   const user = useUserContext().user;
+  const { onOpenLogin } = useContext(ContextModal);
   const cars = [
     {
       id: 1,
@@ -153,12 +157,12 @@ export default function Profile() {
             Anúnciante
           </span>
           <p className="text-grey-800">{user.description}</p>
-          <button
-            type="submit"
+          <Button
             className="text-brand-400 font-semibold mt-10 px-6 py-3 border border-brand-400 rounded"
+            onClick={onOpenLogin}
           >
-            Criar anúncio
-          </button>
+            Criar Anúncio
+          </Button>
         </section>
 
         <section className="mt-20 px-4 tablet::px-16">
@@ -191,6 +195,7 @@ export default function Profile() {
         </div>
         <Footer />
       </div>
+      <CarModal />
     </>
   );
 }

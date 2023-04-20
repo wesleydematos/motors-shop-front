@@ -2,28 +2,24 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
   FormControl,
+  ModalHeader,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Button,
   Input,
-  Select,
 } from "@chakra-ui/react";
 import { Colors } from "../../themes/themes";
+import { useContext } from "react";
+import { ContextModal } from "../../contexts/ModalContext";
 
 export default function CarModal() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpenLogin, onCloseLogin } = useContext(ContextModal);
   return (
     <>
-      <Button className="text-brand-400 font-semibold mt-10 px-6 py-3 border border-brand-400 rounded" onClick={onOpen}>Criar Anúncio</Button>
-
-      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
+      <Modal isOpen={isOpenLogin} onClose={onCloseLogin}>
         <ModalOverlay />
         <ModalContent
           maxW={550}
@@ -33,12 +29,12 @@ export default function CarModal() {
           borderRadius={"0.5rem"}
           padding={"0.5rem"}
           bg={"white"}
+          justifySelf={"center"}
         >
           <div className="flex w-full justify-between">
             <h2 className="font-lexend font-semibold">Criar Anúncio</h2>
             <ModalCloseButton color={Colors.grey4} />
           </div>
-
           <form>
             <ModalBody className="p-[8px]">
               <h2 className="font-medium font-inter">Informações do veículo</h2>
@@ -141,7 +137,7 @@ export default function CarModal() {
           </form>
           <ModalFooter>
             <Button
-              onClick={onClose}
+              onClick={onCloseLogin}
               bg={Colors.grey6}
               h="49px"
               color={Colors.grey2}

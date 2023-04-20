@@ -3,6 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { AnnouncementProvider } from "./contexts/Announcement";
 import { UserProvider } from "./contexts/User";
 import RoutesMain from "./routes";
+import { ModalProvider } from "./contexts/ModalContext";
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
       <ToastContainer theme="dark" />
       <UserProvider>
         <AnnouncementProvider>
-          <RoutesMain />
+          <ModalProvider>
+            <RoutesMain />
+          </ModalProvider>
         </AnnouncementProvider>
       </UserProvider>
     </>

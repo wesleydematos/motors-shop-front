@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import AnnouncementPage from "./pages/AnnouncementPage";
 
 const RoutesMain = () => {
   return (
@@ -14,6 +15,7 @@ const RoutesMain = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/car" element={<Car />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/product" element={<AnnouncementPage />} />
       </Routes>
     </>
   );

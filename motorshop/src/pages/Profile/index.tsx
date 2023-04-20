@@ -139,7 +139,7 @@ export default function Profile() {
     <>
       <div className="bg-grey-300">
         <Header />
-        <div className="h-96 mt-20  bg-brand-400" />
+        <div className="h-96 mt-20 bg-brand-400" />
         <section className="max-w-7xl mx-auto bg-whiteFixed p-10 rounded -mt-60">
           <img
             src="https://images.stylight.net/image/upload/t_web_post_500x667/q_auto,f_auto/post-c798e472ed3fa9d95f35a0aa8a04c5410f22ca7062fd77278b8fe97c.jpg"

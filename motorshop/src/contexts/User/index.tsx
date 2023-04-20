@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
@@ -15,6 +15,23 @@ const UserContext = createContext<iUserContext>({} as iUserContext);
 export const UserProvider = ({ children }: iUserContextProps) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<iUser>({} as iUser);
+
+  useEffect(() => {
+    setUser({
+      id: "1",
+      name: "Diogo Steiner",
+      email: "steiner@mail.com",
+      cpf: "111.222.333-00",
+      number: "21 9 9988-7755",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium sed quod minima maxime id amet sapiente quisquam, officia impedit. Veniam rem totam eligendi accusamus, aliquam et sit delectus numquam fugiat.",
+      isActive: true,
+      isAdvertiser: true,
+      dateBirth: "140701",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+  }, []);
 
   // async function getMyProfile() {
   //   const userId = JSON.parse(localStorage.getItem("@userID-MotorsShop") + "");

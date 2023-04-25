@@ -6,7 +6,6 @@ import {
   iLogin,
   iLoginResponse,
   iRegister,
-  iUpdateAddressRequest,
   iUser,
   iUserContext,
   iUserContextProps,
@@ -78,7 +77,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
     navigate("/");
   }
 
-  async function updateAddress(body: iUpdateAddressRequest) {
+  async function updateAddress(body: any) {
     for (var item in body) {
       if (!!!body[item]) {
         delete body[item];

@@ -9,6 +9,9 @@ export interface iUserContext {
   setIsRegister: React.Dispatch<React.SetStateAction<boolean>>;
   isRegister: boolean;
   logout(): void;
+  setOnAddressMod: React.Dispatch<React.SetStateAction<boolean>>;
+  onAddressMod: boolean;
+  updateAddress(body: iUpdateAddressRequest): Promise<void>;
 }
 
 export interface iUser {
@@ -49,6 +52,15 @@ export interface iRegister {
   complement: string;
   password: string;
   passwordConfirmation: string;
+}
+
+export interface iUpdateAddressRequest {
+  zip_code?: string;
+  state?: string;
+  city?: string;
+  street?: string;
+  number?: string;
+  complement?: string;
 }
 
 export interface iCreateUserRequest {

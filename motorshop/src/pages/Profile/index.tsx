@@ -6,9 +6,10 @@ import CardCar from "./CardCar";
 import CarModal from "../../components/CarModal";
 import { ContextModal } from "../../contexts/ModalContext";
 import { Button } from "@chakra-ui/button";
+import AddressModal from "../../components/AddressModal";
 
 export default function Profile() {
-  const user = useUserContext().user;
+  const { user, onAddressMod, setOnAddressMod } = useUserContext();
   const { onOpenLogin } = useContext(ContextModal);
   const cars = [
     {
@@ -141,6 +142,7 @@ export default function Profile() {
 
   return (
     <>
+      {onAddressMod && <AddressModal />}
       <div className="bg-grey-300">
         <Header />
         <div className="h-96 mt-20 bg-brand-400" />
@@ -157,12 +159,23 @@ export default function Profile() {
             Anúnciante
           </span>
           <p className="text-grey-800">{user.description}</p>
-          <Button
-            className="text-brand-400 font-semibold mt-10 px-6 py-3 border border-brand-400 rounded"
-            onClick={onOpenLogin}
-          >
-            Criar Anúncio
-          </Button>
+          <div className="flex items-center gap-2 flex-wrap">
+            <Button
+              className="text-brand-400 font-semibold mt-10 px-6 py-3 border border-brand-400 rounded bg-whiteFixed"
+              onClick={onOpenLogin}
+            >
+              Criar Anúncio
+            </Button>
+            <button className="text-brand-400 font-semibold h-10 mt-10 px-6  border border-brand-400 rounded">
+              Editar perfil
+            </button>
+            <button
+              onClick={() => setOnAddressMod(true)}
+              className="text-brand-400 font-semibold h-10 mt-10 px-6  border border-brand-400 rounded"
+            >
+              Editar endereço
+            </button>
+          </div>
         </section>
 
         <section className="mt-20 px-4 tablet::px-16">

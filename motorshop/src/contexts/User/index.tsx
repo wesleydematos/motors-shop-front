@@ -6,6 +6,7 @@ import {
   iLogin,
   iLoginResponse,
   iRegister,
+  iUpdateAddressRequest,
   iUser,
   iUserContext,
   iUserContextProps,
@@ -18,6 +19,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
   const [user, setUser] = useState<iUser>({} as iUser);
   const [isAdvertiser, setIsAdvertiser] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
+  const [onAddressMod, setOnAddressMod] = useState(false);
 
   async function handleRegister(data: iRegister) {
     const userData = {
@@ -76,6 +78,30 @@ export const UserProvider = ({ children }: iUserContextProps) => {
     navigate("/");
   }
 
+  async function updateAddress(body: iUpdateAddressRequest) {
+    for (var item in body) {
+      if (!!!body[item]) {
+        delete body[item];
+      }
+    }
+
+    if (!!!Object.keys(body).length) {
+      toast.error("Insira algum campo para mudança!");
+      return;
+    }
+
+    const token = localStorage.getItem("@Token-MotorsShop");
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+    try {
+      await api.patch("/address", body);
+      toast.success("Endereço editado com sucesso!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Não foi possível editar endereço!");
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -87,6 +113,9 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         setIsRegister,
         isRegister,
         logout,
+        onAddressMod,
+        setOnAddressMod,
+        updateAddress,
       }}
     >
       {children}

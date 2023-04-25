@@ -6,80 +6,77 @@ const regexOnlyNumber = /\D/g;
 export const RegisterSchema = yup.object({
   name: yup
     .string()
-    .min(3, "Mínime de 3 cáracteres!")
-    .max(26, "Máximo de 26 carácteres!")
+    .min(3, "Min 3 char!")
+    .max(26, "Max 3 char!")
     .trim()
-    .required("Nome é obrigatório!"),
+    .required("Nome obrigatório!"),
   email: yup
     .string()
     .email()
-    .min(6, "Mínimo de 6 cáracteres!")
-    .max(72, "Máximo de 72 carácteres!")
+    .min(6, "Min 6 char!")
+    .max(72, "Max 72 char!")
     .trim()
-    .required("Email é obrigatório!"),
+    .required("Email obrigatório!"),
   cpf: yup
     .string()
-    .length(11)
+    .length(11, "11 char!")
     .trim()
-    .required("CPF é obrigatório!")
+    .required("CPF obrigatório!")
     .transform((value: string) =>
       value.replace(regexRemoveSpecialCharacters, "")
     ),
   phoneNumber: yup
     .string()
-    .length(11)
+    .length(11, "11 char!")
     .trim()
-    .required("Número de celular é obrigatório!")
+    .required("Obrigatório!")
     .transform((value: string) => value.replace(regexOnlyNumber, "")),
   dateBirth: yup
     .string()
-    .length(6)
+    .length(6, "6 char!")
     .trim()
-    .required("Data de aniversário é obrigatória!")
+    .required("Obrigatório!")
     .transform((value: string) => value.replace(regexOnlyNumber, "")),
   description: yup
     .string()
-    .min(1, "Descrição muito curta!")
-    .max(900, "Máximo de 900 carácteres!")
+    .min(1, "Muito curta!")
+    .max(900, "Max 900 char!")
     .trim()
-    .required("Descricção é obrigatória!"),
-  zip_code: yup.string().length(9).trim().required("CEP é obrigatório!"),
-  state: yup
-    .string()
-    .min(2, "Mínimo de 2 carácteres!")
-    .required("Estado é obrigatório!"),
+    .required("Obrigatório!"),
+  zip_code: yup.string().length(9).trim().required("Obrigatório!"),
+  state: yup.string().min(2, "Min 2 char!").required("Obrigatório!"),
   city: yup
     .string()
-    .max(26, "Máximo de 26 carácteres!")
-    .min(3, "Mínimo de 3 carácteres!")
+    .max(26, "Min 26 char!")
+    .min(3, "Min de 3 char!")
     .trim()
     .required("Cidade é obrigatória!"),
   street: yup
     .string()
-    .max(26, "Máximo de 26 carácteres!")
-    .min(3, "Mínimo de 3 carácteres!")
+    .max(26, "Max de 26 char!")
+    .min(3, "Min de 3 char!")
     .trim()
-    .required("Rua é obrigatória!"),
+    .required("Obrigatório!"),
   number: yup
     .string()
-    .max(11, "Máximo de 11 carácteres!")
-    .min(1, "Mínimo de 1 carácteres!")
+    .max(11, "Max de 11 char!")
+    .min(1, "Min de 1 char!")
     .trim()
-    .required("Número é obrigatório!"),
+    .required("Obrigatório!"),
   complement: yup
     .string()
-    .max(26, "Máximo de 26 carácteres!")
-    .min(3, "Mínimo de 3 carácteres!")
+    .max(26, "Max de 26 char!")
+    .min(3, "Min de 3 char!")
     .trim()
-    .required("Complemento é obrigatório!"),
+    .required("Obrigatório!"),
   password: yup
     .string()
-    .min(6, "Mínimo de 6 carácteres!")
-    .max(72, "Máximo de 72 carácteres!")
+    .min(6, "Min de 6 char!")
+    .max(72, "Max de 72 char!")
     .trim()
-    .required("Senha é obrigatória"),
+    .required("Obrigatório"),
   passwordConfirmation: yup
     .string()
-    .required("Confirmação de senha é obrigatória!")
-    .oneOf([yup.ref("password")], "As senhas devem ser iguais!"),
+    .required("Obrigatório!")
+    .oneOf([yup.ref("password")], "Senhas devem ser iguais!"),
 });

@@ -71,9 +71,12 @@ export default function Login() {
                 {...register("password")}
               />
             </div>
-            <p className="mt-2 text-right text-grey-900 cursor-pointer hover:text-grey-1000">
+            <Link
+              to="/reset-password"
+              className="block mt-2 text-right text-grey-900 cursor-pointer hover:text-grey-1000"
+            >
               Esqueci minha senha
-            </p>
+            </Link>
             <button
               type="submit"
               className="bg-brand-400 text-whiteFixed mt-5 h-12 w-full text-base font-semibold hover:bg-brand-300"

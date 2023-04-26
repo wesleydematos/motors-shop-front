@@ -1,28 +1,23 @@
+import { useAnnouncementContext } from "../../contexts/Announcement";
+
 export default function FilterHome() {
-  const brands = [
-    "General Motors",
-    "FiatFord",
-    "Honda",
-    "Porsche",
-    "Volswagen",
-  ];
-
-  const models = [
-    "Civic",
-    "Corolla",
-    "Cruze",
-    "Fit",
-    "Gol",
-    "Ka",
-    "Onix",
-    "Porsche 718",
-  ];
-
-  const colors = ["Azul", "Branca", "Cinza", "Prata", "Preta", "Verde"];
-
-  const years = [2022, 2021, 2018, 2015, 2013, 2012, 2010];
-
-  const fuels = ["Diesel", "Etanol", "Gasolina", "Flex"];
+  const {
+    brandFil,
+    modelsFil,
+    colorsFil,
+    yearsFil,
+    fuelsFil,
+    setBrandFil,
+    setModelsFil,
+    setColorsFil,
+    setYearsFil,
+    setFuelsFil,
+    setCars,
+    allBrands,
+    allModels,
+    allCars,
+    cars,
+  } = useAnnouncementContext();
 
   return (
     <>
@@ -30,12 +25,24 @@ export default function FilterHome() {
         <div>
           <h3 className="text-3xl font-bold mb-1">Marca</h3>
           <ul>
-            {brands.map((brand, index) => (
+            {brandFil.map((brand, index) => (
               <li
                 key={index}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
+                onClick={() => {
+                  if (brandFil.length > 1) {
+                    const carsFil = cars.filter(
+                      (car) => car.brand.toUpperCase() === brand.toUpperCase()
+                    );
+                    setCars(carsFil);
+                    setBrandFil([brand]);
+                  } else {
+                    setBrandFil(allBrands);
+                    setCars(allCars);
+                  }
+                }}
               >
-                {brand}
+                {brand.charAt(0).toUpperCase() + brand.slice(1)}
               </li>
             ))}
           </ul>
@@ -44,24 +51,48 @@ export default function FilterHome() {
         <div>
           <h3 className="text-3xl font-bold mb-1">Modelo</h3>
           <ul>
-            {models.map((model, index) => (
-              <li
-                key={index}
-                className="text-xl text-grey-800 font-medium cursor-pointer"
-              >
-                {model}
-              </li>
-            ))}
+            {modelsFil.map((model, index) => {
+              if (brandFil.length > 1) {
+                return <></>;
+              }
+
+              return (
+                <li
+                  key={index}
+                  className="text-xl text-grey-800 font-medium cursor-pointer"
+                  onClick={() => {
+                    if (modelsFil.length > 1) {
+                      const carsFil = cars.filter(
+                        (car) => car.model.toUpperCase() === model.toUpperCase()
+                      );
+                      setCars(carsFil);
+                      setModelsFil([model]);
+                    } else {
+                      setBrandFil(allBrands);
+                      setModelsFil(allModels);
+                      setCars(allCars);
+                    }
+                  }}
+                >
+                  {model.charAt(0).toUpperCase() + model.slice(1)}
+                </li>
+              );
+            })}
           </ul>
         </div>
 
         <div>
           <h3 className="text-3xl font-bold mb-1">Cor</h3>
           <ul>
-            {colors.map((color, index) => (
+            {colorsFil.map((color, index) => (
               <li
                 key={index}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
+                onClick={() => {
+                  colorsFil.length > 1
+                    ? setColorsFil([color])
+                    : setColorsFil(colorsFil);
+                }}
               >
                 {color}
               </li>
@@ -72,10 +103,15 @@ export default function FilterHome() {
         <div>
           <h3 className="text-3xl font-bold mb-1">Ano</h3>
           <ul>
-            {years.map((year, index) => (
+            {yearsFil.map((year, index) => (
               <li
                 key={index}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
+                onClick={() => {
+                  yearsFil.length > 1
+                    ? setYearsFil([year])
+                    : setYearsFil(yearsFil);
+                }}
               >
                 {year}
               </li>
@@ -84,12 +120,17 @@ export default function FilterHome() {
         </div>
 
         <div>
-          <h3 className="text-3xl font-bold mb-1">Ano</h3>
+          <h3 className="text-3xl font-bold mb-1">Combustível</h3>
           <ul>
-            {fuels.map((fuel, index) => (
+            {fuelsFil.map((fuel, index) => (
               <li
                 key={index}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
+                onClick={() => {
+                  fuelsFil.length > 1
+                    ? setFuelsFil([fuel])
+                    : setFuelsFil(fuelsFil);
+                }}
               >
                 {fuel}
               </li>
@@ -139,6 +180,13 @@ export default function FilterHome() {
         <button
           type="button"
           className="mt-16 bg-brand-300 text-whiteFixed w-4/5 h-12 rounded font-semibold mx-auto hidden tablet:block"
+          onClick={() => {
+            setBrandFil(allBrands);
+            setColorsFil(colorsFil);
+            setFuelsFil(fuelsFil);
+            setModelsFil(modelsFil);
+            setYearsFil(yearsFil);
+          }}
         >
           Limpar filtros
         </button>

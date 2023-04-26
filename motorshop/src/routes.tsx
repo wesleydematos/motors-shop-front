@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import AnnouncementPage from "./pages/AnnouncementPage";
+import ResetPassword from "./pages/ResetPassword";
+import ResetPasswordNewPassword from "./pages/ResetPasswordNewPassword";
 
 const RoutesMain = () => {
   return (
@@ -16,6 +18,11 @@ const RoutesMain = () => {
         <Route path="/car" element={<Car />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/product" element={<AnnouncementPage />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route
+          path="/reset-password/new-password"
+          element={<ResetPasswordNewPassword />}
+        />
       </Routes>
     </>
   );

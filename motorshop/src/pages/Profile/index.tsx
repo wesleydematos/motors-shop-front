@@ -7,9 +7,16 @@ import CarModal from "../../components/CarModal";
 import { ContextModal } from "../../contexts/ModalContext";
 import { Button } from "@chakra-ui/button";
 import AddressModal from "../../components/AddressModal";
+import UpdateUserModal from "../../components/UpdateUserModal";
 
 export default function Profile() {
-  const { user, onAddressMod, setOnAddressMod } = useUserContext();
+  const {
+    user,
+    onAddressMod,
+    setOnAddressMod,
+    onUserUpdateMod,
+    setOnUserUpdateMod,
+  } = useUserContext();
   const { onOpenLogin } = useContext(ContextModal);
   const cars = [
     {
@@ -142,6 +149,7 @@ export default function Profile() {
 
   return (
     <>
+      {onUserUpdateMod && <UpdateUserModal />}
       {onAddressMod && <AddressModal />}
       <div className="bg-grey-300">
         <Header />
@@ -166,7 +174,10 @@ export default function Profile() {
             >
               Criar Anúncio
             </Button>
-            <button className="text-brand-400 font-semibold h-10 mt-10 px-6  border border-brand-400 rounded">
+            <button
+              onClick={() => setOnUserUpdateMod(true)}
+              className="text-brand-400 font-semibold h-10 mt-10 px-6  border border-brand-400 rounded"
+            >
               Editar perfil
             </button>
             <button

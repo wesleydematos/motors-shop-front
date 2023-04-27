@@ -9,6 +9,7 @@ import {
   iUser,
   iUserContext,
   iUserContextProps,
+  iUserUpdateRequest,
 } from "./types";
 
 const UserContext = createContext<iUserContext>({} as iUserContext);
@@ -19,6 +20,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
   const [isAdvertiser, setIsAdvertiser] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const [onAddressMod, setOnAddressMod] = useState(false);
+  const [onUserUpdateMod, setOnUserUpdateMod] = useState(false);
 
   async function handleRegister(data: iRegister) {
     const userData = {
@@ -101,6 +103,47 @@ export const UserProvider = ({ children }: iUserContextProps) => {
     }
   }
 
+  async function updateUser(body: iUserUpdateRequest | any) {
+    for (var item in body) {
+      if (!!!body[item]) {
+        delete body[item];
+      }
+    }
+
+    if (!!!Object.keys(body).length) {
+      toast.error("Insira algum campo para mudança!");
+      return;
+    }
+
+    const token = localStorage.getItem("@Token-MotorsShop");
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+    try {
+      await api
+        .patch("/users", body)
+        .then((response) => setUser(response.data));
+      toast.success("Usuario editado com sucesso!");
+      setOnUserUpdateMod(false);
+    } catch (error) {
+      console.error(error);
+      toast.error("Não foi possível editar Informações do Usuario!");
+    }
+  }
+
+  async function deleteUser() {
+    const token = localStorage.getItem("@Token-MotorsShop");
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+    try {
+      await api.delete("/users");
+      toast.success("Usuario deletado com sucesso!");
+      logout();
+    } catch (error) {
+      console.error(error);
+      toast.error("Não foi possível deletar o Usuario!");
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -115,6 +158,10 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         onAddressMod,
         setOnAddressMod,
         updateAddress,
+        onUserUpdateMod,
+        setOnUserUpdateMod,
+        updateUser,
+        deleteUser,
       }}
     >
       {children}

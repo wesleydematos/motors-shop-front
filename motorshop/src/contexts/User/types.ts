@@ -9,9 +9,13 @@ export interface iUserContext {
   setIsRegister: React.Dispatch<React.SetStateAction<boolean>>;
   isRegister: boolean;
   logout(): void;
+  deleteUser(): void;
   setOnAddressMod: React.Dispatch<React.SetStateAction<boolean>>;
   onAddressMod: boolean;
   updateAddress(body: iUpdateAddressRequest): Promise<void>;
+  updateUser(body: iUserUpdateRequest): Promise<void>;
+  onUserUpdateMod: boolean;
+  setOnUserUpdateMod: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface iUser {
@@ -77,4 +81,27 @@ export interface iCreateUserRequest {
 export interface iLoginResponse {
   token: string;
   user: iUser;
+}
+
+export interface iUserUpdateRequest {
+  name?: string;
+  email?: string;
+  cpf?: string;
+  number?: string;
+  dateBirth?: string;
+  description?: string;
+}
+
+export interface iUserUpdateResponse {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  number: string;
+  dateBirth: string;
+  description: string;
+  isAdvertiser: boolean;
+  isActive: boolean;
+  updatedAt: Date;
+  createdAt: Date;
 }

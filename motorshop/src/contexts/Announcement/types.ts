@@ -37,6 +37,7 @@ export interface iAnnouncementContext {
   priceMax: string;
   mileageMax: string;
   getMax(type: string, e: any): void;
+  setYears(year: number): void;
 }
 
 export interface iAnnouncementContextProps {

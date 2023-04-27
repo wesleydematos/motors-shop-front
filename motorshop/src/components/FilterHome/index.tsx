@@ -12,11 +12,12 @@ export default function FilterHome() {
     getMax,
     priceMax,
     mileageMax,
+    setYears,
     colorsFil,
     yearsFil,
     fuelsFil,
     setColorsFil,
-    setYearsFil,
+
     setFuelsFil,
     cleanFilters,
   } = useAnnouncementContext();
@@ -86,11 +87,7 @@ export default function FilterHome() {
               <li
                 key={index}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
-                onClick={() => {
-                  yearsFil.length > 1
-                    ? setYearsFil([year])
-                    : setYearsFil(yearsFil);
-                }}
+                onClick={() => setYears(year)}
               >
                 {year}
               </li>

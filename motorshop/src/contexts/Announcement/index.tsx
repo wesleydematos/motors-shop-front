@@ -17,9 +17,9 @@ export const AnnouncementProvider = ({
   const [allCars, setAllCars] = useState([] as iCarResponse[]);
   const [allBrands, setAllbrands] = useState([""]);
   const [brandFil, setBrandFil] = useState([""]);
-  const [allModels, setAllModels] = useState([""]);
   const [modelsFil, setModelsFil] = useState([""]);
   const [colorsFil, setColorsFil] = useState([""]);
+  const [allYears, setAllYears] = useState([] as number[]);
   const [yearsFil, setYearsFil] = useState([] as number[]);
   const [fuelsFil, setFuelsFil] = useState([""]);
   const [mileageMin, setMileageMin] = useState("");
@@ -59,9 +59,17 @@ export const AnnouncementProvider = ({
       setCars(carsFil);
       setModelsFil([model]);
     } else {
-      setBrandFil(allBrands);
-      setModelsFil(allModels);
-      setCars(allCars);
+      cleanFilters();
+    }
+  }
+
+  function setYears(year: number): void {
+    if (yearsFil.length > 1) {
+      const carsFil = cars.filter((car) => car.year === year);
+      setCars(carsFil);
+      setYearsFil([year]);
+    } else {
+      cleanFilters();
     }
   }
 
@@ -70,7 +78,7 @@ export const AnnouncementProvider = ({
     setColorsFil(colorsFil);
     setFuelsFil(fuelsFil);
     setModelsFil(modelsFil);
-    setYearsFil(yearsFil);
+    setYearsFil(allYears);
     setCars(allCars);
     setMileageMin("");
     setPriceMin("");
@@ -185,13 +193,19 @@ export const AnnouncementProvider = ({
 
   useEffect(() => {
     const models = cars.map((car) => car.model);
+    const years = cars.map((car) => car.year);
 
     const uniqueModels = models.filter((item, index) => {
       return models.indexOf(item) === index;
     });
 
-    setAllModels(uniqueModels);
+    const uniqueYears = years.filter((item, index) => {
+      return years.indexOf(item) === index;
+    });
+
     setModelsFil(uniqueModels);
+    setAllYears(uniqueYears);
+    setYearsFil(uniqueYears);
   }, [cars]);
 
   return (
@@ -215,6 +229,7 @@ export const AnnouncementProvider = ({
         getMax,
         mileageMax,
         priceMax,
+        setYears,
       }}
     >
       {children}

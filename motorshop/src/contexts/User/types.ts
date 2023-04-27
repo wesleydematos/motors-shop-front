@@ -10,12 +10,14 @@ export interface iUserContext {
   isRegister: boolean;
   logout(): void;
   deleteUser(): void;
+  getUserVehicles(): void;
   setOnAddressMod: React.Dispatch<React.SetStateAction<boolean>>;
   onAddressMod: boolean;
   updateAddress(body: iUpdateAddressRequest): Promise<void>;
   updateUser(body: iUserUpdateRequest): Promise<void>;
   onUserUpdateMod: boolean;
   setOnUserUpdateMod: React.Dispatch<React.SetStateAction<boolean>>;
+  userVehicles: IVehicleResponse[];
 }
 
 export interface iUser {
@@ -104,4 +106,38 @@ export interface iUserUpdateResponse {
   isActive: boolean;
   updatedAt: Date;
   createdAt: Date;
+}
+
+export interface IVehicleResponse {
+  id: string;
+  title: string;
+  brand: string;
+  model: string;
+  year: number;
+  fuel: string;
+  color: string;
+  mileage: number;
+  price: number;
+  description: string;
+  coverUrl: string;
+  bellowFipe: boolean;
+  fipe: string;
+  isActive: boolean;
+  updatedAt: Date;
+  createdAt: Date;
+}
+
+export interface IGetUserIdResponse {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  number: string;
+  dateBirth: string;
+  description: string;
+  isAdvertiser: boolean;
+  isActive: boolean;
+  updatedAt: Date;
+  createdAt: Date;
+  vehicles: IVehicleResponse[];
 }

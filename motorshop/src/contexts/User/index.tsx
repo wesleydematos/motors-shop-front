@@ -10,6 +10,7 @@ import {
   iUserContext,
   iUserContextProps,
   iUserUpdateRequest,
+  IVehicleResponse,
 } from "./types";
 
 const UserContext = createContext<iUserContext>({} as iUserContext);
@@ -21,6 +22,9 @@ export const UserProvider = ({ children }: iUserContextProps) => {
   const [isRegister, setIsRegister] = useState(false);
   const [onAddressMod, setOnAddressMod] = useState(false);
   const [onUserUpdateMod, setOnUserUpdateMod] = useState(false);
+  const [userVehicles, setUserVehicles] = useState<IVehicleResponse[]>(
+    [] as IVehicleResponse[]
+  );
 
   async function handleRegister(data: iRegister) {
     const userData = {
@@ -64,12 +68,26 @@ export const UserProvider = ({ children }: iUserContextProps) => {
       localStorage.setItem("@userID-MotorsShop", JSON.stringify(data.user.id));
 
       setUser(data.user);
-
       toast.success("Login efetuado com sucesso!");
       navigate("/profile");
     } catch (error: any) {
       console.error(error.message);
       toast.error("Erro ao efetuar o login!");
+    }
+  }
+
+  async function getUserVehicles() {
+    const token = localStorage.getItem("@Token-MotorsShop");
+
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+    try {
+      await api
+        .get(`/users/${user.id}`)
+        .then((response) => setUserVehicles(response.data.vehicles));
+    } catch (error) {
+      console.error(error);
+      toast.error("Não foi possível buscar carros do Usuario!");
     }
   }
 
@@ -137,7 +155,9 @@ export const UserProvider = ({ children }: iUserContextProps) => {
     try {
       await api.delete("/users");
       toast.success("Usuario deletado com sucesso!");
-      logout();
+      localStorage.clear();
+      setUser({} as iUser);
+      navigate("/");
     } catch (error) {
       console.error(error);
       toast.error("Não foi possível deletar o Usuario!");
@@ -162,6 +182,8 @@ export const UserProvider = ({ children }: iUserContextProps) => {
         setOnUserUpdateMod,
         updateUser,
         deleteUser,
+        userVehicles,
+        getUserVehicles,
       }}
     >
       {children}

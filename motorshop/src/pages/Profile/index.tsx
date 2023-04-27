@@ -16,136 +16,18 @@ export default function Profile() {
     setOnAddressMod,
     onUserUpdateMod,
     setOnUserUpdateMod,
+    userVehicles,
+    getUserVehicles,
   } = useUserContext();
   const { onOpenLogin } = useContext(ContextModal);
-  const cars = [
-    {
-      id: 1,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/ZnKvO2/s3/2023-porsche-911-carrera-t-in-gulf-blue.webp",
-      name: "Porsche 911",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Steiner",
-      kilometers: 0,
-      year: 2020,
-      price: 1300000,
-    },
-    {
-      id: 2,
-      isActive: false,
-      img: "https://media.cdnws.com/_i/286143/19770/1635/72/mercedes-amg-gt-black-series.jpeg",
-      name: "Mercedes AMG GT3 Black Series",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Enrico",
-      kilometers: 0,
-      year: 2022,
-      price: 1800000,
-    },
-    {
-      id: 3,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-    {
-      id: 4,
-      isActive: false,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-    {
-      id: 5,
-      isActive: false,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-    {
-      id: 1,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/ZnKvO2/s3/2023-porsche-911-carrera-t-in-gulf-blue.webp",
-      name: "Porsche 911",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Steiner",
-      kilometers: 0,
-      year: 2020,
-      price: 1300000,
-    },
-    {
-      id: 2,
-      isActive: true,
-      img: "https://media.cdnws.com/_i/286143/19770/1635/72/mercedes-amg-gt-black-series.jpeg",
-      name: "Mercedes AMG GT3 Black Series",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Enrico",
-      kilometers: 0,
-      year: 2022,
-      price: 1800000,
-    },
-    {
-      id: 3,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-    {
-      id: 4,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-    {
-      id: 5,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-  ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPage = 34;
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
+
+  getUserVehicles();
 
   return (
     <>
@@ -196,7 +78,7 @@ export default function Profile() {
             </h2>
           )}
           <ul className="flex overflow-x-scroll overflow-y-hidden tablet:overflow-x-hidden  tablet:grid tablet:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-12">
-            {cars.map((car, index) => {
+            {userVehicles.map((car, index) => {
               return <CardCar key={index} car={car} />;
             })}
           </ul>

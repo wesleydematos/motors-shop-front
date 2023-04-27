@@ -34,6 +34,9 @@ export interface iAnnouncementContext {
   setBrands(brand: string): void;
   setModels(model: string): void;
   priceMin: string;
+  priceMax: string;
+  mileageMax: string;
+  getMax(type: string, e: any): void;
 }
 
 export interface iAnnouncementContextProps {

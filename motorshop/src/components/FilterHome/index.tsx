@@ -9,6 +9,9 @@ export default function FilterHome() {
     priceMin,
     mileageMin,
     getMin,
+    getMax,
+    priceMax,
+    mileageMax,
     colorsFil,
     yearsFil,
     fuelsFil,
@@ -125,6 +128,8 @@ export default function FilterHome() {
               className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
             />
             <input
+              onChange={(e) => getMax("mileage", e)}
+              value={mileageMax}
               type="number"
               placeholder="Máxima"
               className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
@@ -143,6 +148,8 @@ export default function FilterHome() {
               className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
             />
             <input
+              value={priceMax}
+              onChange={(e) => getMax("price", e)}
               type="number"
               placeholder="Máximo"
               className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"

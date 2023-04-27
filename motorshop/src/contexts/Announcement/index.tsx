@@ -23,7 +23,9 @@ export const AnnouncementProvider = ({
   const [yearsFil, setYearsFil] = useState([] as number[]);
   const [fuelsFil, setFuelsFil] = useState([""]);
   const [mileageMin, setMileageMin] = useState("");
+  const [mileageMax, setMileageMax] = useState("");
   const [priceMin, setPriceMin] = useState("");
+  const [priceMax, setPriceMax] = useState("");
 
   async function getAllCars(): Promise<void> {
     try {
@@ -71,53 +73,98 @@ export const AnnouncementProvider = ({
     setYearsFil(yearsFil);
     setCars(allCars);
     setMileageMin("");
+    setPriceMin("");
+    setMileageMax("");
+    setPriceMax("");
   }
 
   function getMin(type: string, e: any): void {
     if (type === "price") {
       setPriceMin(e.target.value);
 
-      const carfill = cars.filter(
+      const carsFiltred = cars.filter(
         (car) => car.price >= parseInt(e.target.value)
       );
 
-      const minValue = cars.reduce((min, item) => {
+      const minPrice = cars.reduce((min, item) => {
         return item.price < min ? item.price : min;
       }, cars[0].price);
 
       if (
-        carfill.length === 0 &&
-        String(minValue).length > e.target.value.length
+        carsFiltred.length === 0 &&
+        String(minPrice).length > e.target.value.length
       ) {
         setCars(allCars);
         setBrandFil(allBrands);
       }
 
-      if (carfill.length !== 0 && carfill.length < cars.length) {
-        setCars(carfill);
+      if (carsFiltred.length !== 0 && carsFiltred.length < cars.length) {
+        setCars(carsFiltred);
+      }
+    } else {
+      setMileageMin(e.target.value);
+
+      const carsFiltred = cars.filter(
+        (car) => parseInt(car.mileage) >= parseInt(e.target.value)
+      );
+
+      const minMileage = cars.reduce((min, item) => {
+        return parseInt(item.mileage) < min ? parseInt(item.mileage) : min;
+      }, parseInt(cars[0].mileage));
+
+      if (
+        carsFiltred.length === 0 &&
+        String(minMileage).length > e.target.value.length
+      ) {
+        setCars(allCars);
+        setBrandFil(allBrands);
+      }
+
+      if (carsFiltred.length !== 0 && carsFiltred.length < cars.length) {
+        setCars(carsFiltred);
       }
     }
+  }
 
-    setMileageMin(e.target.value);
+  function getMax(type: string, e: any): void {
+    if (type === "price") {
+      setPriceMax(e.target.value);
 
-    const carfillmile = cars.filter(
-      (car) => parseInt(car.mileage) >= parseInt(e.target.value)
-    );
+      const carsFiltred = cars.filter(
+        (car) => car.price <= parseInt(e.target.value)
+      );
 
-    const minValue = cars.reduce((min, item) => {
-      return parseInt(item.mileage) < min ? parseInt(item.mileage) : min;
-    }, parseInt(cars[0].mileage));
+      const maxPrice = cars.reduce((max, item) => {
+        return item.price > max ? item.price : max;
+      }, cars[0].price);
 
-    if (
-      carfillmile.length === 0 &&
-      String(minValue).length > e.target.value.length
-    ) {
-      setCars(allCars);
-      setBrandFil(allBrands);
-    }
+      if (String(maxPrice).length < e.target.value.length) {
+        setCars(allCars);
+        setBrandFil(allBrands);
+      }
 
-    if (carfillmile.length !== 0 && carfillmile.length < cars.length) {
-      setCars(carfillmile);
+      if (carsFiltred.length !== 0 && carsFiltred.length < cars.length) {
+        setCars(carsFiltred);
+      }
+    } else {
+      setMileageMax(e.target.value);
+
+      const carsFiltred = cars.filter(
+        (car) => parseInt(car.mileage) <= parseInt(e.target.value)
+      );
+
+      const maxMileage = cars.reduce((max, item) => {
+        return parseInt(item.mileage) > max ? parseInt(item.mileage) : max;
+      }, parseInt(cars[0].mileage));
+
+      if (String(maxMileage).length < e.target.value.length) {
+        setCars(allCars);
+        setBrandFil(allBrands);
+      }
+
+      if (carsFiltred.length !== 0 && carsFiltred.length < cars.length) {
+        setCars(carsFiltred);
+      }
     }
   }
 
@@ -165,6 +212,9 @@ export const AnnouncementProvider = ({
         priceMin,
         setBrands,
         setModels,
+        getMax,
+        mileageMax,
+        priceMax,
       }}
     >
       {children}

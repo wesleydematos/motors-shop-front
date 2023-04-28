@@ -1,138 +1,26 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useUserContext } from "../../contexts/User";
 import CardCar from "./CardCar";
 import CarModal from "../../components/CarModal";
+import CarEditModal from "../../components/CarEditModal";
 import { ContextModal } from "../../contexts/ModalContext";
 import { Button } from "@chakra-ui/button";
 import AddressModal from "../../components/AddressModal";
+import UpdateUserModal from "../../components/UpdateUserModal";
 
 export default function Profile() {
-  const { user, onAddressMod, setOnAddressMod } = useUserContext();
-  const { onOpenLogin } = useContext(ContextModal);
-  const cars = [
-    {
-      id: 1,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/ZnKvO2/s3/2023-porsche-911-carrera-t-in-gulf-blue.webp",
-      name: "Porsche 911",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Steiner",
-      kilometers: 0,
-      year: 2020,
-      price: 1300000,
-    },
-    {
-      id: 2,
-      isActive: false,
-      img: "https://media.cdnws.com/_i/286143/19770/1635/72/mercedes-amg-gt-black-series.jpeg",
-      name: "Mercedes AMG GT3 Black Series",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Enrico",
-      kilometers: 0,
-      year: 2022,
-      price: 1800000,
-    },
-    {
-      id: 3,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-    {
-      id: 4,
-      isActive: false,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-    {
-      id: 5,
-      isActive: false,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-    {
-      id: 1,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/ZnKvO2/s3/2023-porsche-911-carrera-t-in-gulf-blue.webp",
-      name: "Porsche 911",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Steiner",
-      kilometers: 0,
-      year: 2020,
-      price: 1300000,
-    },
-    {
-      id: 2,
-      isActive: true,
-      img: "https://media.cdnws.com/_i/286143/19770/1635/72/mercedes-amg-gt-black-series.jpeg",
-      name: "Mercedes AMG GT3 Black Series",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Enrico",
-      kilometers: 0,
-      year: 2022,
-      price: 1800000,
-    },
-    {
-      id: 3,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-    {
-      id: 4,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-    {
-      id: 5,
-      isActive: true,
-      img: "https://cdn.motor1.com/images/mgl/jbGeN/s3/2023-chevrolet-corvette-z06-front-view.webp",
-      name: "Corvette Z06",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-      postedBy: "Victor",
-      kilometers: 0,
-      year: 2021,
-      price: 1100000.0,
-    },
-  ];
+  const {
+    user,
+    onAddressMod,
+    setOnAddressMod,
+    onUserUpdateMod,
+    setOnUserUpdateMod,
+    userVehicles,
+    getUserVehicles,
+  } = useUserContext();
+  const { onOpenLogin, onCloseLogin } = useContext(ContextModal);
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPage = 34;
@@ -140,8 +28,13 @@ export default function Profile() {
     setCurrentPage(currentPage + 1);
   };
 
+  useEffect(() => {
+    getUserVehicles();
+  }, [onCloseLogin]);
+
   return (
     <>
+      {onUserUpdateMod && <UpdateUserModal />}
       {onAddressMod && <AddressModal />}
       <div className="bg-grey-300">
         <Header />
@@ -166,9 +59,14 @@ export default function Profile() {
             >
               Criar Anúncio
             </Button>
-            <button className="text-brand-400 font-semibold h-10 mt-10 px-6  border border-brand-400 rounded">
+
+            <button
+              onClick={() => setOnUserUpdateMod(true)}
+              className="text-brand-400 font-semibold h-10 mt-10 px-6  border border-brand-400 rounded"
+            >
               Editar perfil
             </button>
+
             <button
               onClick={() => setOnAddressMod(true)}
               className="text-brand-400 font-semibold h-10 mt-10 px-6  border border-brand-400 rounded"
@@ -185,7 +83,7 @@ export default function Profile() {
             </h2>
           )}
           <ul className="flex overflow-x-scroll overflow-y-hidden tablet:overflow-x-hidden  tablet:grid tablet:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-12">
-            {cars.map((car, index) => {
+            {userVehicles.map((car, index) => {
               return <CardCar key={index} car={car} />;
             })}
           </ul>
@@ -209,6 +107,7 @@ export default function Profile() {
         <Footer />
       </div>
       <CarModal />
+      <CarEditModal />
     </>
   );
 }

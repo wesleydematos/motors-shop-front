@@ -38,6 +38,11 @@ export interface iAnnouncementContext {
   mileageMax: string;
   getMax(type: string, e: any): void;
   setYears(year: number): void;
+  setCarsBrandOption: React.Dispatch<React.SetStateAction<any>>;
+  setCarsModelOption: React.Dispatch<React.SetStateAction<string[]>>;
+  carsFipe: string[];
+  carsBrandOption: any;
+  carsModelOption: any;
 }
 
 export interface iAnnouncementContextProps {

@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { api } from "../../services/api";
+import { api, apiFipe } from "../../services/api";
 import {
   iAnnouncementContext,
   iAnnouncementContextProps,
   iCarResponse,
 } from "./types";
 
-const AnnouncementContext = createContext<iAnnouncementContext>(
+export const AnnouncementContext = createContext<iAnnouncementContext>(
   {} as iAnnouncementContext
 );
 
@@ -27,6 +27,25 @@ export const AnnouncementProvider = ({
   const [mileageMax, setMileageMax] = useState("");
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
+  const [carsFipe, setCarsFipe] = useState([] as any);
+  const [carsBrandOption, setCarsBrandOption] = useState("chevrolet");
+  const [carsModelOption, setCarsModelOption] = useState([] as any);
+
+  async function getCarsFipe(): Promise<void> {
+    try {
+      const response = await apiFipe.get("/cars");
+      setCarsFipe(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getCarsFipe();
+  }, []);
+
+  useEffect(() => {
+    setCarsModelOption(carsFipe[carsBrandOption]);
+  }, [carsBrandOption]);
 
   async function getAllCars(): Promise<void> {
     try {
@@ -183,7 +202,6 @@ export const AnnouncementProvider = ({
 
   useEffect(() => {
     const brands = allCars.map((car) => car.brand);
-
     const uniqueBrands = brands.filter((item, index) => {
       return brands.indexOf(item) === index;
     });
@@ -231,6 +249,11 @@ export const AnnouncementProvider = ({
         mileageMax,
         priceMax,
         setYears,
+        carsFipe,
+        carsBrandOption,
+        setCarsBrandOption,
+        carsModelOption,
+        setCarsModelOption,
       }}
     >
       {children}

@@ -2,14 +2,22 @@ import { useUserContext } from "../../contexts/User";
 
 interface ICardCarProps {
   car: {
-    img: string;
-    name: string;
-    description: string;
-    postedBy: string;
-    kilometers: number;
+    id: string;
+    title: string;
+    brand: string;
+    model: string;
     year: number;
+    fuel: string;
+    color: string;
+    mileage: number;
     price: number;
+    description: string;
+    coverUrl: string;
+    bellowFipe: boolean;
+    fipe: string;
     isActive: boolean;
+    updatedAt: Date;
+    createdAt: Date;
   };
 }
 
@@ -29,16 +37,18 @@ export default function CardCar({ car }: ICardCarProps) {
           </span>
         )}
 
-        <img src={car.img} alt="" className="h-full w-full object-cover" />
+        <img src={car.coverUrl} alt="" className="h-full w-full object-cover" />
       </div>
       <div>
-        <strong className="inline-block mt-4 text-grey-1000">{car.name}</strong>
+        <strong className="inline-block mt-4 text-grey-1000">
+          {car.title}
+        </strong>
         <p className="my-4 text-grey-900 text-sm">{car.description}</p>
       </div>
       <div className="flex justify-between items-center">
         <div>
           <span className="px-2 py-1 text-brand-300 bg-brand-100 text-sm font-medium">
-            {car.kilometers} KM
+            {car.mileage} KM
           </span>
           <span className="px-2 py-1 text-brand-300 bg-brand-100 text-sm font-medium ml-3">
             {car.year}

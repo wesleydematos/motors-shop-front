@@ -85,9 +85,9 @@ export const UserProvider = ({ children }: iUserContextProps) => {
       await api
         .get(`/users/${user.id}`)
         .then((response) => setUserVehicles(response.data.vehicles));
+      console.log("entrou");
     } catch (error) {
       console.error(error);
-      toast.error("Não foi possível buscar carros do Usuario!");
     }
   }
 

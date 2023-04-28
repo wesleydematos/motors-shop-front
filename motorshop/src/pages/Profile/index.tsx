@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useUserContext } from "../../contexts/User";
@@ -19,7 +19,7 @@ export default function Profile() {
     userVehicles,
     getUserVehicles,
   } = useUserContext();
-  const { onOpenLogin } = useContext(ContextModal);
+  const { onOpenLogin, onCloseLogin } = useContext(ContextModal);
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPage = 34;
@@ -27,7 +27,9 @@ export default function Profile() {
     setCurrentPage(currentPage + 1);
   };
 
-  getUserVehicles();
+  useEffect(() => {
+    getUserVehicles();
+  }, [onCloseLogin]);
 
   return (
     <>

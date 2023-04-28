@@ -5,7 +5,7 @@ export default function CarShowcase() {
   const { cars } = useAnnouncementContext();
 
   if (!cars.length) {
-    return <div>Nenhum carro foi anunciado ainda! :/</div>;
+    return <div>Nenhum anuncio encontrado! :/</div>;
   }
 
   return (

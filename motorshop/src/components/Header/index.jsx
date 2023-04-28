@@ -11,9 +11,9 @@ export default function Header() {
 
   return (
     <header className="flex justify-between items-center  bg-whiteFixed px-4 tablet:px-16 shadow-md w-full h-20 fixed top-0 left-0  z-20">
-      <div className="w-36 h-6">
+      <Link to="/" className="w-36 h-6">
         <img src={logo} alt="logo" />
-      </div>
+      </Link>
 
       <div className="flex">
         <div

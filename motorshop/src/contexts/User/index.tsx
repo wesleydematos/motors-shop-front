@@ -64,7 +64,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
       setUser(data.user);
 
       toast.success("Login efetuado com sucesso!");
-      navigate("/profile");
+      navigate("/");
     } catch (error: any) {
       console.error(error.message);
       toast.error("Erro ao efetuar o login!");

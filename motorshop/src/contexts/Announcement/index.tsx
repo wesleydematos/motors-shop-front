@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import {
   iAnnouncementContext,
@@ -147,8 +148,8 @@ export const AnnouncementProvider = ({
       }, cars[0].price);
 
       if (String(maxPrice).length < e.target.value.length) {
-        setCars(allCars);
-        setBrandFil(allBrands);
+        cleanFilters();
+        toast.info("Valor muito alto!");
       }
 
       if (carsFiltred.length !== 0 && carsFiltred.length < cars.length) {
@@ -166,8 +167,8 @@ export const AnnouncementProvider = ({
       }, parseInt(cars[0].mileage));
 
       if (String(maxMileage).length < e.target.value.length) {
-        setCars(allCars);
-        setBrandFil(allBrands);
+        cleanFilters();
+        toast.info("Valor muito alto!");
       }
 
       if (carsFiltred.length !== 0 && carsFiltred.length < cars.length) {

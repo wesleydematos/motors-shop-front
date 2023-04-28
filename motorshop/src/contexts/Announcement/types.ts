@@ -43,6 +43,7 @@ export interface iAnnouncementContext {
   carsFipe: string[];
   carsBrandOption: any;
   carsModelOption: any;
+  getAllCars(): Promise<void>;
 }
 
 export interface iAnnouncementContextProps {

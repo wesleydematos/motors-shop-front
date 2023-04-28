@@ -254,6 +254,7 @@ export const AnnouncementProvider = ({
         setCarsBrandOption,
         carsModelOption,
         setCarsModelOption,
+        getAllCars,
       }}
     >
       {children}

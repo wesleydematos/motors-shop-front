@@ -3,20 +3,23 @@ import { useAnnouncementContext } from "../../contexts/Announcement";
 export default function FilterHome() {
   const {
     brandFil,
+    setBrands,
     modelsFil,
+    setModels,
+    priceMin,
+    mileageMin,
+    getMin,
+    getMax,
+    priceMax,
+    mileageMax,
+    setYears,
     colorsFil,
     yearsFil,
     fuelsFil,
-    setBrandFil,
-    setModelsFil,
     setColorsFil,
-    setYearsFil,
+
     setFuelsFil,
-    setCars,
-    allBrands,
-    allModels,
-    allCars,
-    cars,
+    cleanFilters,
   } = useAnnouncementContext();
 
   return (
@@ -29,18 +32,7 @@ export default function FilterHome() {
               <li
                 key={index}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
-                onClick={() => {
-                  if (brandFil.length > 1) {
-                    const carsFil = cars.filter(
-                      (car) => car.brand.toUpperCase() === brand.toUpperCase()
-                    );
-                    setCars(carsFil);
-                    setBrandFil([brand]);
-                  } else {
-                    setBrandFil(allBrands);
-                    setCars(allCars);
-                  }
-                }}
+                onClick={() => setBrands(brand)}
               >
                 {brand.charAt(0).toUpperCase() + brand.slice(1)}
               </li>
@@ -60,19 +52,7 @@ export default function FilterHome() {
                 <li
                   key={index}
                   className="text-xl text-grey-800 font-medium cursor-pointer"
-                  onClick={() => {
-                    if (modelsFil.length > 1) {
-                      const carsFil = cars.filter(
-                        (car) => car.model.toUpperCase() === model.toUpperCase()
-                      );
-                      setCars(carsFil);
-                      setModelsFil([model]);
-                    } else {
-                      setBrandFil(allBrands);
-                      setModelsFil(allModels);
-                      setCars(allCars);
-                    }
-                  }}
+                  onClick={() => setModels(model)}
                 >
                   {model.charAt(0).toUpperCase() + model.slice(1)}
                 </li>
@@ -107,11 +87,7 @@ export default function FilterHome() {
               <li
                 key={index}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
-                onClick={() => {
-                  yearsFil.length > 1
-                    ? setYearsFil([year])
-                    : setYearsFil(yearsFil);
-                }}
+                onClick={() => setYears(year)}
               >
                 {year}
               </li>
@@ -142,11 +118,15 @@ export default function FilterHome() {
           <h3 className="text-3xl font-bold mb-1">Km</h3>
           <div className="flex gap-7">
             <input
+              onChange={(e) => getMin("mileage", e)}
+              value={mileageMin}
               type="number"
               placeholder="Mínima"
               className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
             />
             <input
+              onChange={(e) => getMax("mileage", e)}
+              value={mileageMax}
               type="number"
               placeholder="Máxima"
               className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
@@ -158,11 +138,15 @@ export default function FilterHome() {
           <h3 className="text-3xl font-bold mb-1">Preço</h3>
           <div className="flex gap-7">
             <input
+              value={priceMin}
+              onChange={(e) => getMin("price", e)}
               type="number"
               placeholder="Mínimo"
               className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
             />
             <input
+              value={priceMax}
+              onChange={(e) => getMax("price", e)}
               type="number"
               placeholder="Máximo"
               className="bg-grey-600 w-full max-w-[125px] placeholder:text-grey-900 placeholder:text-center border-none"
@@ -180,13 +164,7 @@ export default function FilterHome() {
         <button
           type="button"
           className="mt-16 bg-brand-300 text-whiteFixed w-4/5 h-12 rounded font-semibold mx-auto hidden tablet:block"
-          onClick={() => {
-            setBrandFil(allBrands);
-            setColorsFil(colorsFil);
-            setFuelsFil(fuelsFil);
-            setModelsFil(modelsFil);
-            setYearsFil(yearsFil);
-          }}
+          onClick={() => cleanFilters()}
         >
           Limpar filtros
         </button>

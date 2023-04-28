@@ -20,25 +20,30 @@ export interface iCarResponse {
 
 export interface iAnnouncementContext {
   cars: iCarResponse[];
-  allCars: iCarResponse[];
-  setCars: React.Dispatch<React.SetStateAction<iCarResponse[]>>;
   brandFil: string[];
-  allBrands: string[];
   modelsFil: string[];
-  allModels: string[];
   colorsFil: string[];
   yearsFil: number[];
   fuelsFil: string[];
-  carsFipe: string[];
-  carsBrandOption: any;
-  carsModelOption: any;
-  setBrandFil: React.Dispatch<React.SetStateAction<string[]>>;
-  setModelsFil: React.Dispatch<React.SetStateAction<string[]>>;
   setColorsFil: React.Dispatch<React.SetStateAction<string[]>>;
   setYearsFil: React.Dispatch<React.SetStateAction<number[]>>;
   setFuelsFil: React.Dispatch<React.SetStateAction<string[]>>;
+  getMin(type: string, e: any): void;
+  mileageMin: string;
+  cleanFilters(): void;
+  setBrands(brand: string): void;
+  setModels(model: string): void;
+  priceMin: string;
+  priceMax: string;
+  mileageMax: string;
+  getMax(type: string, e: any): void;
+  setYears(year: number): void;
   setCarsBrandOption: React.Dispatch<React.SetStateAction<any>>;
   setCarsModelOption: React.Dispatch<React.SetStateAction<string[]>>;
+  carsFipe: string[];
+  carsBrandOption: any;
+  carsModelOption: any;
+  getAllCars(): Promise<void>;
 }
 
 export interface iAnnouncementContextProps {

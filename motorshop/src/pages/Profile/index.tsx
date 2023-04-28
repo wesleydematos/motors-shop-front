@@ -11,8 +11,6 @@ import AddressModal from "../../components/AddressModal";
 import UpdateUserModal from "../../components/UpdateUserModal";
 
 export default function Profile() {
-  const { onOpenLogin, onOpenEditCar } = useContext(ContextModal);
-
   const {
     user,
     onAddressMod,
@@ -33,7 +31,6 @@ export default function Profile() {
   useEffect(() => {
     getUserVehicles();
   }, [onCloseLogin]);
-
 
   return (
     <>

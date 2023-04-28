@@ -69,7 +69,7 @@ export const UserProvider = ({ children }: iUserContextProps) => {
 
       setUser(data.user);
       toast.success("Login efetuado com sucesso!");
-      navigate("/profile");
+      navigate("/");
     } catch (error: any) {
       console.error(error.message);
       toast.error("Erro ao efetuar o login!");
@@ -85,7 +85,6 @@ export const UserProvider = ({ children }: iUserContextProps) => {
       await api
         .get(`/users/${user.id}`)
         .then((response) => setUserVehicles(response.data.vehicles));
-      console.log("entrou");
     } catch (error) {
       console.error(error);
     }

@@ -6,7 +6,6 @@ import {
   ModalBody,
   ModalCloseButton,
   FormControl,
-  ModalHeader,
   FormLabel,
   Button,
   Input,
@@ -18,13 +17,8 @@ import { AnnouncementContext } from "../../contexts/Announcement";
 
 export default function CarModal() {
   const { isOpenLogin, onCloseLogin } = useContext(ContextModal);
-  const {
-    carsFipe,
-    carsBrandOption,
-    setCarsBrandOption,
-    carsModelOption,
-    setCarsModelOption,
-  } = useContext(AnnouncementContext);
+  const { carsFipe, setCarsBrandOption, carsModelOption } =
+    useContext(AnnouncementContext);
 
   const onChange = (e: any) => {
     setCarsBrandOption(e.target.value);
@@ -36,14 +30,12 @@ export default function CarModal() {
     setImagesNumer([...imagesNumber, 1]);
   };
 
-  const resetModal = ()=> {
-    onCloseLogin()
-    setImagesNumer([])
-  }
+  const resetModal = () => {
+    onCloseLogin();
+    setImagesNumer([]);
+  };
 
   let carsBrand = Object.keys(carsFipe);
-
-  console.log(carsModelOption);
 
   return (
     <>

@@ -4,12 +4,15 @@ import Header from "../../components/Header";
 import { useUserContext } from "../../contexts/User";
 import CardCar from "./CardCar";
 import CarModal from "../../components/CarModal";
+import CarEditModal from "../../components/CarEditModal";
 import { ContextModal } from "../../contexts/ModalContext";
 import { Button } from "@chakra-ui/button";
 import AddressModal from "../../components/AddressModal";
 import UpdateUserModal from "../../components/UpdateUserModal";
 
 export default function Profile() {
+  const { onOpenLogin, onOpenEditCar } = useContext(ContextModal);
+
   const {
     user,
     onAddressMod,
@@ -30,6 +33,7 @@ export default function Profile() {
   useEffect(() => {
     getUserVehicles();
   }, [onCloseLogin]);
+
 
   return (
     <>
@@ -58,12 +62,14 @@ export default function Profile() {
             >
               Criar Anúncio
             </Button>
+
             <button
               onClick={() => setOnUserUpdateMod(true)}
               className="text-brand-400 font-semibold h-10 mt-10 px-6  border border-brand-400 rounded"
             >
               Editar perfil
             </button>
+
             <button
               onClick={() => setOnAddressMod(true)}
               className="text-brand-400 font-semibold h-10 mt-10 px-6  border border-brand-400 rounded"
@@ -104,6 +110,7 @@ export default function Profile() {
         <Footer />
       </div>
       <CarModal />
+      <CarEditModal />
     </>
   );
 }

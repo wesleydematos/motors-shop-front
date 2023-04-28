@@ -6,7 +6,6 @@ import {
   ModalBody,
   ModalCloseButton,
   FormControl,
-  ModalHeader,
   FormLabel,
   Button,
   Input,
@@ -14,40 +13,21 @@ import {
 import { Colors } from "../../themes/themes";
 import { useContext, useState } from "react";
 import { ContextModal } from "../../contexts/ModalContext";
-import { AnnouncementContext } from "../../contexts/Announcement";
 
-export default function CarModal() {
-  const { isOpenLogin, onCloseLogin } = useContext(ContextModal);
-  const {
-    carsFipe,
-    carsBrandOption,
-    setCarsBrandOption,
-    carsModelOption,
-    setCarsModelOption,
-  } = useContext(AnnouncementContext);
-
-  const onChange = (e: any) => {
-    setCarsBrandOption(e.target.value);
-  };
-
+export default function CarEditModal() {
+  const { isOpenEditCar, onCloseEditCar } = useContext(ContextModal);
   const [imagesNumber, setImagesNumer] = useState([] as number[]);
 
   const addImage = () => {
     setImagesNumer([...imagesNumber, 1]);
   };
-
-  const resetModal = ()=> {
-    onCloseLogin()
-    setImagesNumer([])
-  }
-
-  let carsBrand = Object.keys(carsFipe);
-
-  console.log(carsModelOption);
-
+  const resetModal = () => {
+    onCloseEditCar();
+    setImagesNumer([]);
+  };
   return (
     <>
-      <Modal isOpen={isOpenLogin} onClose={onCloseLogin}>
+      <Modal isOpen={isOpenEditCar} onClose={onCloseEditCar}>
         <ModalOverlay />
         <ModalContent
           maxW={550}
@@ -60,7 +40,7 @@ export default function CarModal() {
           justifySelf={"center"}
         >
           <div className="flex w-full justify-between">
-            <h2 className="font-lexend font-semibold">Criar Anúncio</h2>
+            <h2 className="font-lexend font-semibold">Editar Anúncio</h2>
             <ModalCloseButton onClick={resetModal} color={Colors.grey4} />
           </div>
           <form>
@@ -70,25 +50,18 @@ export default function CarModal() {
                 <FormLabel className="w-max font-inter font-medium">
                   Marca
                 </FormLabel>
-                <select
-                  className="w-full border-grey-600 rounded-lg text-grey-800"
-                  onChange={onChange}
-                >
-                  {carsBrand.map((brand): any => {
-                    return <option value={brand}>{brand}</option>;
-                  })}
+                <select className="w-full border-grey-600 rounded-lg text-grey-800">
+                  <option value="option1">Option 1</option>
+                  <option value="option2">Option 2</option>
+                  <option value="option3">Option 3</option>
                 </select>
                 <FormLabel className="w-max font-inter font-medium">
                   Modelo
                 </FormLabel>
                 <select className="w-full border-grey-600 rounded-lg text-grey-800">
-                  {carsModelOption ? (
-                    carsModelOption.map((model: any) => (
-                      <option>{model.name}</option>
-                    ))
-                  ) : (
-                    <option>Selecione uma marca</option>
-                  )}
+                  <option value="option1">Option 1</option>
+                  <option value="option2">Option 2</option>
+                  <option value="option3">Option 3</option>
                 </select>
                 <div className="flex w-full gap-[8px]">
                   <div className="w-2/4">
@@ -146,6 +119,22 @@ export default function CarModal() {
                   className="w-full h-[100px] border-grey-600 rounded-lg"
                   type="text"
                 />
+                <FormLabel className="font-inter font-medium">
+                  Publicado
+                </FormLabel>
+                <div className="w-full flex gap-[9px]">
+                  <Button
+                    className="w-1/2"
+                    bg={"white"}
+                    border={`1px solid ${Colors.grey2}`}
+                  >
+                    {" "}
+                    Sim{" "}
+                  </Button>
+                  <Button className="w-1/2" color={"white"} bg={Colors.brand1}>
+                    Não
+                  </Button>
+                </div>
                 <div className="flex flex-col gap-[8px]">
                   <FormLabel className="font-inter font-medium">
                     Imagem de Capa
@@ -200,14 +189,15 @@ export default function CarModal() {
           </form>
           <ModalFooter>
             <Button
-              onClick={resetModal}
+              onClick={onCloseEditCar}
               bg={Colors.grey6}
               h="49px"
               color={Colors.grey2}
               padding={"8px"}
               borderRadius={"0.5rem"}
+              className="w-1/2"
             >
-              Cancelar
+              Excluir Anúncio
             </Button>
             <Button
               type="submit"
@@ -217,8 +207,9 @@ export default function CarModal() {
               padding={"8px"}
               borderRadius={"0.5rem"}
               marginLeft={"15px"}
+              className="w-1/2"
             >
-              Criar Anúncio
+              Salvar alterações
             </Button>
           </ModalFooter>
         </ModalContent>

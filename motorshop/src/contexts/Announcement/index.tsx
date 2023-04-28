@@ -19,9 +19,11 @@ export const AnnouncementProvider = ({
   const [allBrands, setAllbrands] = useState([""]);
   const [brandFil, setBrandFil] = useState([""]);
   const [modelsFil, setModelsFil] = useState([""]);
+  const [allColors, setAllColors] = useState([""]);
   const [colorsFil, setColorsFil] = useState([""]);
   const [allYears, setAllYears] = useState([] as number[]);
   const [yearsFil, setYearsFil] = useState([] as number[]);
+  const [allFuels, setAllFuels] = useState([""]);
   const [fuelsFil, setFuelsFil] = useState([""]);
   const [mileageMin, setMileageMin] = useState("");
   const [mileageMax, setMileageMax] = useState("");
@@ -83,6 +85,26 @@ export const AnnouncementProvider = ({
     }
   }
 
+  function setColors(color: string): void {
+    if (colorsFil.length > 1) {
+      const carsFil = cars.filter((car) => car.color === color);
+      setCars(carsFil);
+      setColorsFil([color]);
+    } else {
+      cleanFilters();
+    }
+  }
+
+  function setFuels(fuel: string): void {
+    if (fuelsFil.length > 1) {
+      const carsFil = cars.filter((car) => car.fuel === fuel);
+      setCars(carsFil);
+      setColorsFil([fuel]);
+    } else {
+      cleanFilters();
+    }
+  }
+
   function setYears(year: number): void {
     if (yearsFil.length > 1) {
       const carsFil = cars.filter((car) => car.year === year);
@@ -99,6 +121,8 @@ export const AnnouncementProvider = ({
     setFuelsFil(fuelsFil);
     setModelsFil(modelsFil);
     setYearsFil(allYears);
+    setColorsFil(allColors);
+    setFuelsFil(allFuels);
     setCars(allCars);
     setMileageMin("");
     setPriceMin("");
@@ -213,18 +237,32 @@ export const AnnouncementProvider = ({
   useEffect(() => {
     const models = cars.map((car) => car.model);
     const years = cars.map((car) => car.year);
+    const colors = cars.map((car) => car.color);
+    const fuels = cars.map((car) => car.fuel);
 
-    const uniqueModels = models.filter((item, index) => {
-      return models.indexOf(item) === index;
+    const uniqueModels = models.filter((model, index) => {
+      return models.indexOf(model) === index;
     });
 
-    const uniqueYears = years.filter((item, index) => {
-      return years.indexOf(item) === index;
+    const uniqueYears = years.filter((year, index) => {
+      return years.indexOf(year) === index;
+    });
+
+    const uniqueColors = colors.filter((color, index) => {
+      return colors.indexOf(color) === index;
+    });
+
+    const uniqueFuels = fuels.filter((fuel, index) => {
+      return fuels.indexOf(fuel) === index;
     });
 
     setModelsFil(uniqueModels);
     setAllYears(uniqueYears);
     setYearsFil(uniqueYears);
+    setColorsFil(uniqueColors);
+    setAllColors(uniqueColors);
+    setFuelsFil(uniqueFuels);
+    setAllFuels(uniqueFuels);
   }, [cars]);
 
   return (
@@ -255,6 +293,8 @@ export const AnnouncementProvider = ({
         carsModelOption,
         setCarsModelOption,
         getAllCars,
+        setColors,
+        setFuels,
       }}
     >
       {children}

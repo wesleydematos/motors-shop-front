@@ -16,9 +16,8 @@ export default function FilterHome() {
     colorsFil,
     yearsFil,
     fuelsFil,
-    setColorsFil,
-
-    setFuelsFil,
+    setColors,
+    setFuels,
     cleanFilters,
   } = useAnnouncementContext();
 
@@ -68,11 +67,7 @@ export default function FilterHome() {
               <li
                 key={index}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
-                onClick={() => {
-                  colorsFil.length > 1
-                    ? setColorsFil([color])
-                    : setColorsFil(colorsFil);
-                }}
+                onClick={() => setColors(color)}
               >
                 {color}
               </li>
@@ -102,11 +97,7 @@ export default function FilterHome() {
               <li
                 key={index}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
-                onClick={() => {
-                  fuelsFil.length > 1
-                    ? setFuelsFil([fuel])
-                    : setFuelsFil(fuelsFil);
-                }}
+                onClick={() => setFuels(fuel)}
               >
                 {fuel}
               </li>

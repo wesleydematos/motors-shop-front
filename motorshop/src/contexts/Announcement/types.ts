@@ -16,6 +16,7 @@ export interface iCarResponse {
   updatedAt: string;
   year: number;
   user: string;
+  color: string;
 }
 
 export interface iAnnouncementContext {
@@ -44,6 +45,8 @@ export interface iAnnouncementContext {
   carsBrandOption: any;
   carsModelOption: any;
   getAllCars(): Promise<void>;
+  setColors(color: string): void;
+  setFuels(fuel: string): void;
 }
 
 export interface iAnnouncementContextProps {

@@ -1,12 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { api } from "../../services/api";
+import { api, apiFipe } from "../../services/api";
 import {
   iAnnouncementContext,
   iAnnouncementContextProps,
   iCarResponse,
 } from "./types";
 
-const AnnouncementContext = createContext<iAnnouncementContext>(
+export const AnnouncementContext = createContext<iAnnouncementContext>(
   {} as iAnnouncementContext
 );
 
@@ -22,6 +22,25 @@ export const AnnouncementProvider = ({
   const [colorsFil, setColorsFil] = useState([""]);
   const [yearsFil, setYearsFil] = useState([] as number[]);
   const [fuelsFil, setFuelsFil] = useState([""]);
+  const [carsFipe, setCarsFipe] = useState([] as any);
+  const [carsBrandOption, setCarsBrandOption] = useState("chevrolet");
+  const [carsModelOption, setCarsModelOption] = useState([] as any);
+
+  async function getCarsFipe(): Promise<void> {
+    try {
+      const response = await apiFipe.get("/cars");
+      setCarsFipe(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getCarsFipe();
+  }, []);
+
+  useEffect(() => {
+    setCarsModelOption(carsFipe[carsBrandOption]);    
+  }, [carsBrandOption]);  
 
   async function getAllCars(): Promise<void> {
     try {
@@ -39,7 +58,6 @@ export const AnnouncementProvider = ({
 
   useEffect(() => {
     const brands = allCars.map((car) => car.brand);
-
     const uniqueBrands = brands.filter((item, index) => {
       return brands.indexOf(item) === index;
     });
@@ -77,6 +95,11 @@ export const AnnouncementProvider = ({
         allCars,
         allBrands,
         allModels,
+        carsFipe,
+        carsBrandOption,
+        setCarsBrandOption,
+        carsModelOption,
+        setCarsModelOption,
       }}
     >
       {children}

@@ -5,6 +5,9 @@ interface iModalContext {
   isOpenLogin: boolean;
   onOpenLogin: () => void;
   onCloseLogin: () => void;
+  isOpenEditCar: boolean;
+  onOpenEditCar: () => void;
+  onCloseEditCar: () => void;
 }
 
 interface iModalContextProps {
@@ -13,15 +16,17 @@ interface iModalContextProps {
 
 export const ContextModal = createContext<iModalContext>({} as iModalContext);
 
-export const ModalProvider = ({
-  children,
-}: iModalContextProps) => {
-
-
+export const ModalProvider = ({ children }: iModalContextProps) => {
   const {
     isOpen: isOpenLogin,
     onOpen: onOpenLogin,
     onClose: onCloseLogin,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenEditCar,
+    onOpen: onOpenEditCar,
+    onClose: onCloseEditCar,
   } = useDisclosure();
 
   return (
@@ -30,6 +35,9 @@ export const ModalProvider = ({
         isOpenLogin,
         onOpenLogin,
         onCloseLogin,
+        isOpenEditCar,
+        onOpenEditCar,
+        onCloseEditCar
       }}
     >
       {children}

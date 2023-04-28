@@ -29,11 +29,16 @@ export interface iAnnouncementContext {
   colorsFil: string[];
   yearsFil: number[];
   fuelsFil: string[];
+  carsFipe: string[];
+  carsBrandOption: any;
+  carsModelOption: any;
   setBrandFil: React.Dispatch<React.SetStateAction<string[]>>;
   setModelsFil: React.Dispatch<React.SetStateAction<string[]>>;
   setColorsFil: React.Dispatch<React.SetStateAction<string[]>>;
   setYearsFil: React.Dispatch<React.SetStateAction<number[]>>;
   setFuelsFil: React.Dispatch<React.SetStateAction<string[]>>;
+  setCarsBrandOption: React.Dispatch<React.SetStateAction<any>>;
+  setCarsModelOption: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export interface iAnnouncementContextProps {

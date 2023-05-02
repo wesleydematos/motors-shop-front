@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
@@ -25,6 +25,32 @@ export const UserProvider = ({ children }: iUserContextProps) => {
   const [userVehicles, setUserVehicles] = useState<IVehicleResponse[]>(
     [] as IVehicleResponse[]
   );
+
+  useEffect(() => {
+    const userId = localStorage.getItem("@userID-MotorsShop");
+    const token = localStorage.getItem("@Token-MotorsShop");
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+    if (userId) {
+      getMyProfile();
+    }
+  }, []);
+
+  async function getMyProfile() {
+    const userId = JSON.parse(localStorage.getItem("@userID-MotorsShop") + "");
+    const token = localStorage.getItem("@Token-MotorsShop");
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+    try {
+      const { data } = await api.get<iUser>(`/users/${userId}`);
+      setUser(data);
+    } catch (error) {
+      toast.error("Sessão expirada! Faça login novamente.");
+      localStorage.clear();
+
+      navigate("/login");
+    }
+  }
 
   async function handleRegister(data: iRegister) {
     const userData = {

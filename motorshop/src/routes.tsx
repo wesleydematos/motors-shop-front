@@ -17,7 +17,7 @@ const RoutesMain = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/car" element={<Car />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/product" element={<AnnouncementPage />} />
+        <Route path="/vehicles/:id" element={<AnnouncementPage />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route
           path="/reset-password/new-password"

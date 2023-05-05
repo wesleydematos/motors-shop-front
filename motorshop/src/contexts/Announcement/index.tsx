@@ -33,6 +33,20 @@ export const AnnouncementProvider = ({
   const [carsBrandOption, setCarsBrandOption] = useState("chevrolet");
   const [carsModelOption, setCarsModelOption] = useState([] as any);
 
+  async function postComment(data: any, id: string): Promise<void> {
+    const token = localStorage.getItem("@Token-MotorsShop");
+
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+    try {
+      await api.post(`comments/2d643bfd-821b-4384-8eb8-714e2ad8cce6`, data);
+      toast.success("Comentário publicado com sucesso!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Ocorreu um erro no seu comentário!");
+    }
+  }
+
   async function getCarsFipe(): Promise<void> {
     try {
       const response = await apiFipe.get("/cars");
@@ -295,6 +309,7 @@ export const AnnouncementProvider = ({
         getAllCars,
         setColors,
         setFuels,
+        postComment,
       }}
     >
       {children}

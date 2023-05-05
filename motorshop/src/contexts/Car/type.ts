@@ -1,28 +1,28 @@
-import { ReactNode } from "react";
-
 export interface iCar {
   id: string;
+  title: string;
   brand: string;
+  model: string;
+  year: number;
+  fuel: string;
+  mileage: string;
+  price: number;
+  color: string;
+  description: string;
   coverUrl: string;
   createdAt: string;
-  description: string;
   fipe: string;
-  fuel: string;
   isActive: boolean;
-  mileage: string;
-  model: string;
-  price: number;
-  title: string;
   updatedAt: string;
-  year: number;
   user: string;
-}
-
-export interface iCarContext {
-  car: iCar;
-  setCar: React.Dispatch<React.SetStateAction<iCar>>;
-}
-
-export interface iCarContextProps {
-  children: ReactNode;
+  photos: {
+    id: string;
+    photourl: string;
+  }[];
+  comments: {
+    id: string;
+    commenttext: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
 }

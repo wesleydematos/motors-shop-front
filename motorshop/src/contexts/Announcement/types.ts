@@ -19,6 +19,13 @@ export interface iCarResponse {
   color: string;
 }
 
+export interface iCommentResponse {
+  id: string;
+  comenttext: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface iAnnouncementContext {
   cars: iCarResponse[];
   brandFil: string[];
@@ -47,6 +54,7 @@ export interface iAnnouncementContext {
   getAllCars(): Promise<void>;
   setColors(color: string): void;
   setFuels(fuel: string): void;
+  postComment(data: any, id: string): Promise<void>;
 }
 
 export interface iAnnouncementContextProps {

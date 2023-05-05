@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { useUserContext } from "../../contexts/User";
+import { ContextModal } from "../../contexts/ModalContext";
 
 interface ICardCarProps {
   car: {
@@ -23,6 +25,8 @@ interface ICardCarProps {
 
 export default function CardCar({ car }: ICardCarProps) {
   const user = useUserContext().user;
+
+  const { onOpenEditCar  } = useContext(ContextModal);
 
   return (
     <li className="w-[370px] flex-shrink-0 tablet:w-auto">
@@ -66,6 +70,7 @@ export default function CardCar({ car }: ICardCarProps) {
         <button
           type="button"
           className="px-4 py-1 text-sm border-[1px] rounded border-grey-1000"
+          onClick={onOpenEditCar}
         >
           Editar
         </button>

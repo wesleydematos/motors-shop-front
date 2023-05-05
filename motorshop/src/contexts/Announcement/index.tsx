@@ -5,6 +5,7 @@ import {
   iAnnouncementContext,
   iAnnouncementContextProps,
   iCarResponse,
+  iCarSearchFipe,
 } from "./types";
 
 export const AnnouncementContext = createContext<iAnnouncementContext>(
@@ -32,6 +33,36 @@ export const AnnouncementProvider = ({
   const [carsFipe, setCarsFipe] = useState([] as any);
   const [carsBrandOption, setCarsBrandOption] = useState("chevrolet");
   const [carsModelOption, setCarsModelOption] = useState([] as any);
+  const [carsFipeValue, setCarsFipeValue] = useState<any>();
+  const [carSearchFipe, setCarSearchFipe] = useState({} as iCarSearchFipe);
+
+  async function getCarsFipeUnique(
+    carSearchFipe: iCarSearchFipe
+  ): Promise<void> {
+    try {
+      const response = await apiFipe.get(
+        `/cars/unique?brand=${carSearchFipe.brand}&name=${carSearchFipe.name}&year=${carSearchFipe.year}&fuel=${carSearchFipe.fuel}`
+      );
+      setCarsFipeValue(response.data.value);
+      
+    } catch (error) {
+      setCarsFipeValue(0)
+    }
+  }
+
+  async function createCars(data: any) {
+    const token = localStorage.getItem("@Token-MotorsShop");
+    console.log('deu certo');
+    
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+    try{
+      await api.post("/vehicles", data)
+      toast.success("Anúncio criado com sucesso!");
+    }catch(error:any){
+      console.error(error.message);
+      toast.error("Erro ao criar anúncio");
+    }
+  }
 
   async function getCarsFipe(): Promise<void> {
     try {
@@ -44,6 +75,11 @@ export const AnnouncementProvider = ({
   useEffect(() => {
     getCarsFipe();
   }, []);
+
+  useEffect(() => {
+    getCarsFipeUnique(carSearchFipe);
+    console.log(carSearchFipe);
+  }, [carSearchFipe]);
 
   useEffect(() => {
     setCarsModelOption(carsFipe[carsBrandOption]);
@@ -295,6 +331,11 @@ export const AnnouncementProvider = ({
         getAllCars,
         setColors,
         setFuels,
+        carSearchFipe,
+        carsFipeValue,
+        setCarsFipeValue,
+        setCarSearchFipe,
+        createCars
       }}
     >
       {children}

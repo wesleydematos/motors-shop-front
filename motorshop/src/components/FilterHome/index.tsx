@@ -27,9 +27,9 @@ export default function FilterHome() {
         <div>
           <h3 className="text-3xl font-bold mb-1">Marca</h3>
           <ul>
-            {brandFil.map((brand, index) => (
+            {brandFil.map((brand) => (
               <li
-                key={index}
+                key={brand}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
                 onClick={() => setBrands(brand)}
               >
@@ -42,14 +42,14 @@ export default function FilterHome() {
         <div>
           <h3 className="text-3xl font-bold mb-1">Modelo</h3>
           <ul>
-            {modelsFil.map((model, index) => {
+            {modelsFil.map((model) => {
               if (brandFil.length > 1) {
                 return <></>;
               }
 
               return (
                 <li
-                  key={index}
+                  key={model}
                   className="text-xl text-grey-800 font-medium cursor-pointer"
                   onClick={() => setModels(model)}
                 >
@@ -63,9 +63,9 @@ export default function FilterHome() {
         <div>
           <h3 className="text-3xl font-bold mb-1">Cor</h3>
           <ul>
-            {colorsFil.map((color, index) => (
+            {colorsFil.map((color) => (
               <li
-                key={index}
+                key={color}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
                 onClick={() => setColors(color)}
               >
@@ -78,9 +78,9 @@ export default function FilterHome() {
         <div>
           <h3 className="text-3xl font-bold mb-1">Ano</h3>
           <ul>
-            {yearsFil.map((year, index) => (
+            {yearsFil.map((year) => (
               <li
-                key={index}
+                key={year}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
                 onClick={() => setYears(year)}
               >
@@ -93,9 +93,9 @@ export default function FilterHome() {
         <div>
           <h3 className="text-3xl font-bold mb-1">Combustível</h3>
           <ul>
-            {fuelsFil.map((fuel, index) => (
+            {fuelsFil.map((fuel) => (
               <li
-                key={index}
+                key={fuel}
                 className="text-xl text-grey-800 font-medium cursor-pointer"
                 onClick={() => setFuels(fuel)}
               >

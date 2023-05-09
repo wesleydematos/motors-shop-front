@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import AnnouncementPage from "./pages/AnnouncementPage";
 import ResetPassword from "./pages/ResetPassword";
 import ResetPasswordNewPassword from "./pages/ResetPasswordNewPassword";
+import UserById from "./pages/UserById";
 
 const RoutesMain = () => {
   return (
@@ -18,6 +19,7 @@ const RoutesMain = () => {
         <Route path="/car" element={<Car />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/vehicles/:id" element={<AnnouncementPage />} />
+        <Route path="/user/:userId" element={<UserById />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route
           path="/reset-password/new-password"

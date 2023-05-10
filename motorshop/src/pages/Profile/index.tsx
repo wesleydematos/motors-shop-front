@@ -49,7 +49,7 @@ export default function Profile() {
             {user.name}
           </strong>
           <span className="inline-block px-2 py-1 ml-2 rounded bg-brand-100 text-sm text-brand-300">
-            Anúnciante
+            Anunciante
           </span>
           <p className="text-grey-800">{user.description}</p>
           <div className="flex items-center gap-2 flex-wrap">

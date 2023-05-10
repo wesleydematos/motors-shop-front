@@ -50,11 +50,14 @@ export const AnnouncementProvider = ({
     }
   }
 
-  async function createCars(data: any) {
+  async function createCars(data: any): Promise<void> {
     const token = localStorage.getItem("@Token-MotorsShop");
-    console.log('deu certo');
-    
+
     api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+    console.log(data);
+    
+
     try{
       await api.post("/vehicles", data)
       toast.success("Anúncio criado com sucesso!");
@@ -92,7 +95,6 @@ export const AnnouncementProvider = ({
 
   useEffect(() => {
     getCarsFipeUnique(carSearchFipe);
-    console.log(carSearchFipe);
   }, [carSearchFipe]);
 
   useEffect(() => {

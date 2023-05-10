@@ -19,6 +19,14 @@ export interface iCarResponse {
   color: string;
 }
 
+
+export interface iCarSearchFipe{
+  brand?: string,
+  name?: string,
+  year?: number,
+  fuel?: number
+}
+
 export interface iCommentResponse {
   id: string;
   comenttext: string;
@@ -54,6 +62,11 @@ export interface iAnnouncementContext {
   getAllCars(): Promise<void>;
   setColors(color: string): void;
   setFuels(fuel: string): void;
+  carsFipeValue: any;
+  setCarsFipeValue: React.Dispatch<React.SetStateAction<any>>
+  carSearchFipe: iCarSearchFipe
+  setCarSearchFipe: React.Dispatch<React.SetStateAction<iCarSearchFipe>>
+  createCars(data:any): Promise<void>
   postComment(data: any, id: string): Promise<void>;
 }
 

@@ -82,9 +82,14 @@ export default function AnnouncementPage() {
                       }).format(car?.price)}`}
                     </h3>
                   </div>
-                  <button className="w-[6.3rem] h-9 bg-brand-400 rounded text-grey-100 font-inter font-semibold text-sm hover:bg-brand-200 duration-500 mt-12">
+                  <a
+                    href={`https://wa.me/55${user.number}?text=${car.title}`}
+                    target="_blank"
+                    className="w-[6.3rem] h-9 bg-brand-400 rounded text-grey-100 font-inter font-semibold text-sm hover:bg-brand-200 duration-500 mt-12 flex items-center justify-center"
+                    rel="noreferrer"
+                  >
                     Comprar
-                  </button>
+                  </a>
                 </div>
               </section>
               <section className="w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[45rem] h-56 bg-grey-100 rounded flex justify-center mt-5">

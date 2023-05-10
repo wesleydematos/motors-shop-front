@@ -35,6 +35,9 @@ export const AnnouncementProvider = ({
   const [carsModelOption, setCarsModelOption] = useState([] as any);
   const [carsFipeValue, setCarsFipeValue] = useState<any>();
   const [carSearchFipe, setCarSearchFipe] = useState({} as iCarSearchFipe);
+  const [carId, setCarId] = useState("");
+  const [clearInput, setClearInput] = useState("");
+  const [comment, setComment] = useState(false);
 
   async function getCarsFipeUnique(
     carSearchFipe: iCarSearchFipe
@@ -44,33 +47,39 @@ export const AnnouncementProvider = ({
         `/cars/unique?brand=${carSearchFipe.brand}&name=${carSearchFipe.name}&year=${carSearchFipe.year}&fuel=${carSearchFipe.fuel}`
       );
       setCarsFipeValue(response.data.value);
-      
     } catch (error) {
-      setCarsFipeValue(0)
+      setCarsFipeValue(0);
     }
   }
 
   async function createCars(data: any) {
     const token = localStorage.getItem("@Token-MotorsShop");
-    console.log('deu certo');
-    
+    console.log("deu certo");
+
     api.defaults.headers.common.authorization = `Bearer ${token}`;
-    try{
-      await api.post("/vehicles", data)
+    try {
+      await api.post("/vehicles", data);
       toast.success("Anúncio criado com sucesso!");
-    }catch(error:any){
+    } catch (error: any) {
       console.error(error.message);
       toast.error("Erro ao criar anúncio");
     }
   }
 
-  async function postComment(data: any, id: string): Promise<void> {
+  async function postComment(data: any): Promise<void> {
     const token = localStorage.getItem("@Token-MotorsShop");
 
     api.defaults.headers.common.authorization = `Bearer ${token}`;
 
     try {
-      await api.post(`comments/${id}`, data);
+      await api.post(`comments/${carId}`, data);
+      setClearInput("");
+      if (comment === false) {
+        setComment(true);
+      }
+      if (comment === true) {
+        setComment(false);
+      }
       toast.success("Comentário publicado com sucesso!");
     } catch (error) {
       console.log(error);
@@ -351,7 +360,10 @@ export const AnnouncementProvider = ({
         setCarSearchFipe,
         createCars,
         postComment,
-
+        setCarId,
+        clearInput,
+        setClearInput,
+        comment,
       }}
     >
       {children}

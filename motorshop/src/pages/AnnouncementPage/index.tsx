@@ -16,8 +16,12 @@ import { CommentSchema } from "../../schemas/commentSchema";
 export default function AnnouncementPage() {
   const user = useUserContext().user;
   const [car, setCar] = useState(undefined as any);
-  const { postComment } = useAnnouncementContext();
+  const { postComment, setCarId, clearInput, setClearInput, comment } =
+    useAnnouncementContext();
   const { id } = useParams();
+  const onClearInput = (e: any) => {
+    setClearInput(e.target.value);
+  };
 
   const {
     register,
@@ -31,11 +35,12 @@ export default function AnnouncementPage() {
         const { data } = await api.get(`vehicles/${id}`);
 
         setCar(data);
+        setCarId(id as string);
       } catch (error) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [comment]);
 
   if (!car) {
     return <div>Carro não encontrado!</div>;
@@ -105,33 +110,39 @@ export default function AnnouncementPage() {
                   ))}
                 </div>
               </section>
-              <section className="w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[45rem] h-72 bg-grey-100 rounded flex justify-center mt-5">
-                <div className="w-4/5 flex flex-col">
-                  <div className="w-36 h-8 flex mt-9 mb-4">
-                    <img
-                      className="w-8 h-8 rounded-full"
-                      src="https://images.stylight.net/image/upload/t_web_post_500x667/q_auto,f_auto/post-c798e472ed3fa9d95f35a0aa8a04c5410f22ca7062fd77278b8fe97c.jpg"
-                      alt="profile pic"
-                    />
-                    <span className="text-gray-700 font-inter font-medium text-sm flex items-center ml-4">
-                      {user.name}
-                    </span>
+              {user.cpf && (
+                <section
+                  className={`w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[45rem] h-72 bg-grey-100 rounded flex justify-center mt-5 ${
+                    !user.id ? "hidden" : "block"
+                  }`}
+                >
+                  <div className="w-4/5 flex flex-col">
+                    <div className="w-48 h-8 flex mt-9 mb-4">
+                      <p className="font-['Inter, sans-serif'] text-base font-normal text-whiteFixed text-center w-8 h-8 rounded-full bg-brand-300 flex items-center justify-center pl-[1px]">
+                        {user?.name[0].toUpperCase()}
+                      </p>
+                      <span className="text-gray-700 font-inter font-semibold text-[13px] flex items-center ml-3">
+                        {user?.name}
+                      </span>
+                    </div>
+                    <form onSubmit={handleSubmit(postComment)}>
+                      <textarea
+                        placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
+                        className="w-full h-32 rounded border-grey-700"
+                        value={clearInput}
+                        {...register("commenttext")}
+                        onChange={onClearInput}
+                      />
+                      <button
+                        className="w-[6.3rem] h-9 bg-brand-400 rounded text-grey-100 font-inter font-semibold text-sm hover:bg-brand-200 duration-500 mt-2"
+                        type="submit"
+                      >
+                        Comentar
+                      </button>
+                    </form>
                   </div>
-                  <form onSubmit={handleSubmit(postComment as any)}>
-                    <textarea
-                      placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
-                      className="w-full h-32 rounded border-grey-700"
-                      {...register("comenttext")}
-                    />
-                    <button
-                      className="w-[6.3rem] h-9 bg-brand-400 rounded text-grey-100 font-inter font-semibold text-sm hover:bg-brand-200 duration-500 mt-2"
-                      type="submit"
-                    >
-                      Comentar
-                    </button>
-                  </form>
-                </div>
-              </section>
+                </section>
+              )}
             </div>
             <div className="w-[46rem] desktop:w-[27rem] flex flex-col justify-evenly items-center top-[120px]">
               <section className="w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[27rem] h-96 bg-grey-100 rounded flex flex-col items-center justify-center">
@@ -148,7 +159,7 @@ export default function AnnouncementPage() {
               </section>{" "}
               <section className="w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[27rem] h-[25rem] bg-grey-100 rounded flex flex-col items-center justify-center mt-5 text-center">
                 <p className="font-['Inter, sans-serif'] text-6xl font-semibold text-whiteFixed text-center w-28 h-28 rounded-full bg-brand-300 flex items-center justify-center pb-1">
-                  {car?.user.name[0].toUpperCase()}
+                  {car?.user?.name[0].toUpperCase()}
                 </p>
                 <h2 className="font-lexend font-semibold text-xl text-grey-1000 mt-5">
                   {car?.user.name}
@@ -157,7 +168,7 @@ export default function AnnouncementPage() {
                   {car?.user.description}
                 </p>
                 <button className="w-52 h-12 bg-grey-1100 rounded text-grey-100 font-lexend font-semibold text-sm hover:bg-grey-1000 duration-500 mt-5">
-                  <Link to={`/users/${car?.user.id}`}>
+                  <Link to={`/user/${car?.user.id}`}>
                     Ver todos os anúncios
                   </Link>
                 </button>

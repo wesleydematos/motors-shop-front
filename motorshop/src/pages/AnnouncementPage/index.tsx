@@ -4,16 +4,18 @@ import Footer from "../../components/Footer";
 import CommentCard from "../../components/CommentCard";
 import { useUserContext } from "../../contexts/User";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import { iCar } from "../../contexts/Car/type";
 import { useAnnouncementContext } from "../../contexts/Announcement";
 import { useForm } from "react-hook-form";
 import { iCommentResponse } from "../../contexts/Announcement/types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { CommentSchema } from "../../schemas/commentSchema";
 
 export default function AnnouncementPage() {
   const user = useUserContext().user;
-  const [car, setCar] = useState([] as any);
+  const [car, setCar] = useState(undefined as any);
   const { postComment } = useAnnouncementContext();
   const { id } = useParams();
 
@@ -21,21 +23,19 @@ export default function AnnouncementPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iCommentResponse>();
+  } = useForm<iCommentResponse>({ resolver: yupResolver(CommentSchema) });
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await api.get(`/vehicles/${id}`);
+        const { data } = await api.get(`vehicles/${id}`);
 
-        setCar(data[0]);
+        setCar(data);
       } catch (error) {
         console.log(error);
       }
     })();
-  });
-
-  console.log(car);
+  }, []);
 
   if (!car) {
     return <div>Carro não encontrado!</div>;
@@ -62,16 +62,19 @@ export default function AnnouncementPage() {
                     {car?.title}
                   </h2>
                   <div className="flex justify-between mt-2">
-                    <section className="flex">
-                      <span className="w-10 h-6 bg-brand-100 rounded flex items-center justify-center text-brand-400 font-inter font-medium text-sm">
+                    <section className="w-96 flex">
+                      <span className="w-10 h-6 bg-brand-100 rounded flex items-center justify-center text-brand-400 font-inter font-semibold text-sm">
                         {car?.year}
                       </span>
-                      <span className="w-14 h-6 bg-brand-100 rounded flex items-center justify-center text-brand-400 font-inter font-medium text-sm ms-2">
-                        {car?.mileage}
+                      <span className="min-w-max h-6 bg-brand-100 rounded flex items-center justify-center text-brand-400 font-inter font-semibold text-sm ms-2 p-1">
+                        {car?.mileage} KM
                       </span>
                     </section>
-                    <h3 className="text-grey-1000 font-lexend font-medium text-base">
-                      R$ {car?.price}
+                    <h3 className="text-grey-1000 font-lexend font-semibold text-base">
+                      {`${new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "brl",
+                      }).format(car?.price)}`}
                     </h3>
                   </div>
                   <button className="w-[6.3rem] h-9 bg-brand-400 rounded text-grey-100 font-inter font-semibold text-sm hover:bg-brand-200 duration-500 mt-12">
@@ -142,21 +145,21 @@ export default function AnnouncementPage() {
                     ))}
                   </div>
                 </div>
-              </section>
+              </section>{" "}
               <section className="w-[23rem] tablet:w-[28rem] laptop:w-[36rem] desktop:w-[27rem] h-[25rem] bg-grey-100 rounded flex flex-col items-center justify-center mt-5 text-center">
-                <img
-                  className="w-28 h-28 rounded-full"
-                  src="https://images.stylight.net/image/upload/t_web_post_500x667/q_auto,f_auto/post-c798e472ed3fa9d95f35a0aa8a04c5410f22ca7062fd77278b8fe97c.jpg"
-                  alt="profile pic"
-                />
+                <p className="font-['Inter, sans-serif'] text-6xl font-semibold text-whiteFixed text-center w-28 h-28 rounded-full bg-brand-300 flex items-center justify-center pb-1">
+                  {car?.user.name[0].toUpperCase()}
+                </p>
                 <h2 className="font-lexend font-semibold text-xl text-grey-1000 mt-5">
-                  {user.name}
+                  {car?.user.name}
                 </h2>
                 <p className="font-inter font-normal text-base text-grey-900 mt-5">
-                  {user.description}
+                  {car?.user.description}
                 </p>
                 <button className="w-52 h-12 bg-grey-1100 rounded text-grey-100 font-lexend font-semibold text-sm hover:bg-grey-1000 duration-500 mt-5">
-                  Ver todos anúncios
+                  <Link to={`/users/${car?.user.id}`}>
+                    Ver todos os anúncios
+                  </Link>
                 </button>
               </section>
             </div>

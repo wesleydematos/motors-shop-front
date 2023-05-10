@@ -7,7 +7,7 @@ export default function CarCard({ car }: any) {
         </div>
         <div className="flex flex-col gap-2 mt-2">
           <h2 className="font-semibold font-lexend text-xl">{car.model}</h2>
-          <p className="text-grey-800 w-4/5 font-inter">{car.description}</p>
+          <p className="text-grey-800 w-4/5 font-inter overflow-hidden text-ellipsis whitespace-nowrap">{car.description}</p>
           <p className="font-inter font-medium text-grey-900">{car.user}</p>
           <div className="flex justify-between px-1">
             <div className="flex gap-2">

@@ -47,7 +47,7 @@ export default function CardCar({ car }: ICardCarProps) {
         <strong className="inline-block mt-4 text-grey-1000">
           {car.title}
         </strong>
-        <p className="my-4 text-grey-900 text-sm">{car.description}</p>
+        <p className="my-4 text-grey-900 text-sm overflow-hidden text-ellipsis whitespace-nowrap">{car.description}</p>
       </div>
       <div className="flex justify-between items-center">
         <div>

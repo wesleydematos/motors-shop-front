@@ -15,6 +15,7 @@ import { useContext, useState } from "react";
 import { ContextModal } from "../../contexts/ModalContext";
 import { AnnouncementContext } from "../../contexts/Announcement";
 import { useForm } from "react-hook-form";
+import { useUserContext } from "../../contexts/User";
 
 export default function CarModal() {
   const { isOpenLogin, onCloseLogin } = useContext(ContextModal);
@@ -26,8 +27,10 @@ export default function CarModal() {
     carSearchFipe,
     carsFipeValue,
     setCarSearchFipe,
-    createCars
+    createCars,
   } = useContext(AnnouncementContext);
+
+  const { getUserVehicles } = useUserContext();
 
   const fuels = [
     { id: 1, fuel: "FLEX" },
@@ -76,14 +79,15 @@ export default function CarModal() {
       coverUrl: data.coverUrl,
       bellowFipe: carsFipeValue > data.price,
       title: data.model,
-      fipe: carsFipeValue,
+      fipe: String(carsFipeValue),
       photos: {
-        photoUrl: [data.imgDefault1, data.imgDefault2]
+        photourl: [data.imgDefault1, data.imgDefault2],
       },
     };
-    console.log(formatedData);
-    
-    createCars(formatedData)
+
+    createCars(formatedData);
+    onCloseLogin();
+    getUserVehicles();
   };
 
   let carsBrand = Object.keys(carsFipe);

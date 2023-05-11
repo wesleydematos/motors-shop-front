@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3333/",
+  baseURL: "https://motor-shop-api.onrender.com/",
 });
 
 export const apiFipe = axios.create({

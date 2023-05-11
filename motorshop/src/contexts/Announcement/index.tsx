@@ -53,6 +53,20 @@ export const AnnouncementProvider = ({
     }
   }
 
+  async function updateImages(data:string,id:string): Promise<void>{
+    const token = localStorage.getItem("@Token-MotorsShop");
+
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+    try {
+      await api.patch(`/photos/${id}`, data);
+      toast.success("imagem editada com sucesso!");
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error("Erro ao editar imagem");
+    }
+  }
+
   async function updateCars(data: any): Promise<void> {
     const token = localStorage.getItem("@Token-MotorsShop");
 
@@ -395,7 +409,8 @@ export const AnnouncementProvider = ({
         updateCars,
         editCar,
         setEditCar,
-        deleteCars
+        deleteCars,
+        updateImages
       }}
     >
       {children}

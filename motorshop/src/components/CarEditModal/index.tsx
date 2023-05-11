@@ -11,12 +11,11 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { Colors } from "../../themes/themes";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextModal } from "../../contexts/ModalContext";
 import { useForm } from "react-hook-form";
 import { AnnouncementContext } from "../../contexts/Announcement";
-import { useUserContext } from "../../contexts/User";
-import { Id } from "react-toastify";
+import { api } from "../../services/api";
 
 export default function CarEditModal() {
   const { isOpenEditCar, onCloseEditCar } = useContext(ContextModal);
@@ -24,7 +23,20 @@ export default function CarEditModal() {
 
   const { register, handleSubmit } = useForm();
 
-  const { deleteCars } = useContext(AnnouncementContext);
+  const [actualCar, setActualCar] = useState<any>();
+
+  const { deleteCars, editCar, updateImages } = useContext(AnnouncementContext);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await api.get(`vehicles/${editCar}`);
+        setActualCar(data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [editCar]);
 
   const {
     carsFipe,
@@ -36,7 +48,7 @@ export default function CarEditModal() {
     updateCars,
   } = useContext(AnnouncementContext);
 
-  const [isActive, setIsActive] = useState<string | boolean>('') 
+  const [isActive, setIsActive] = useState<string | boolean>("");
 
   const fuels = [
     { id: 1, fuel: "FLEX" },
@@ -98,13 +110,20 @@ export default function CarEditModal() {
     if (data.bellowFipe?.length! > 0) {
       updateCars({ bellowFipe: carsFipeValue > data.price });
     }
-    if(typeof isActive==='boolean'){
-      updateCars({isActive: isActive})
+    if (typeof isActive === "boolean") {
+      updateCars({ isActive: isActive });
+    }
+    if (data.photos?.length! > 0) {
+      console.log(data.photos);
+
+      // data.photos.forEach((photo: any) => {
+      //   console.log(photo);
+
+      //   updateImages(photo.photourl, photo.id);
+      // });
     }
 
-    
     onCloseEditCar();
-    
   };
 
   const deleteCar = () => {
@@ -151,6 +170,7 @@ export default function CarEditModal() {
                   className="w-full border-grey-600 rounded-lg text-grey-800"
                   {...register("brand")}
                   onChange={onChangeBrand}
+                  defaultValue={actualCar?.brand}
                 >
                   {carsBrand.map((brand): any => {
                     return <option value={brand}>{brand}</option>;
@@ -163,6 +183,7 @@ export default function CarEditModal() {
                   className="w-full border-grey-600 rounded-lg text-grey-800"
                   {...register("model")}
                   onChange={onChangeName}
+                  defaultValue={actualCar?.model}
                 >
                   {carsModelOption ? (
                     carsModelOption.map((model: any) => (
@@ -180,6 +201,7 @@ export default function CarEditModal() {
                     <input
                       type="number"
                       className="w-full border-grey-600 rounded-lg text-grey-800"
+                      defaultValue={actualCar?.year}
                       {...register("year")}
                       onChange={onChangeYear}
                     />
@@ -190,6 +212,7 @@ export default function CarEditModal() {
                       className="w-full border-grey-600 rounded-lg"
                       type="number"
                       {...register("mileage")}
+                      defaultValue={actualCar?.mileage}
                     />
                     <FormLabel className="w-max font-inter font-medium">
                       Preço tabela FIPE
@@ -220,6 +243,7 @@ export default function CarEditModal() {
                       className="w-full border-grey-600 rounded-lg text-grey-800"
                       {...register("fuel")}
                       onChange={onChangeFuel}
+                      defaultValue={actualCar?.fuel}
                     >
                       {fuels.map((fuel: any) => (
                         <option id={fuel.id}>{fuel.fuel}</option>
@@ -230,6 +254,7 @@ export default function CarEditModal() {
                       type="text"
                       className="w-full border-grey-600 rounded-lg text-grey-800"
                       {...register("color")}
+                      defaultValue={actualCar?.color}
                     />
                     <FormLabel className="w-max font-inter font-medium">
                       Preço
@@ -238,6 +263,7 @@ export default function CarEditModal() {
                       className="w-full border-grey-600 rounded-lg"
                       type="number"
                       {...register("price")}
+                      defaultValue={actualCar?.price}
                     />
                   </div>
                 </div>
@@ -248,6 +274,7 @@ export default function CarEditModal() {
                   className="w-full h-[100px] border-grey-600 rounded-lg"
                   type="text"
                   {...register("description")}
+                  defaultValue={actualCar?.description}
                 />
                 <FormLabel className="font-inter font-medium">
                   Publicado
@@ -257,11 +284,16 @@ export default function CarEditModal() {
                     className="w-1/2"
                     bg={"white"}
                     border={`1px solid ${Colors.grey2}`}
-                    onClick={()=>setIsActive(true)}
+                    onClick={() => setIsActive(true)}
                   >
                     Sim
                   </Button>
-                  <Button className="w-1/2" color={"white"} bg={Colors.brand1} onClick={()=>setIsActive(false)}>
+                  <Button
+                    className="w-1/2"
+                    color={"white"}
+                    bg={Colors.brand1}
+                    onClick={() => setIsActive(false)}
+                  >
                     Não
                   </Button>
                 </div>
@@ -273,23 +305,24 @@ export default function CarEditModal() {
                     className="w-full border-grey-600 rounded-lg"
                     type="text"
                     {...register("coverUrl")}
+                    defaultValue={actualCar?.coverUrl}
                   />
-                  <FormLabel className="font-inter font-medium">
-                    1ª imagem da galeria
-                  </FormLabel>
-                  <Input
-                    className="w-full border-grey-600 rounded-lg"
-                    type="text"
-                    {...register("imgDefault1")}
-                  />
-                  <FormLabel className="font-inter font-medium">
-                    2ª imagem da galeria
-                  </FormLabel>
-                  <Input
-                    className="w-full border-grey-600 rounded-lg"
-                    type="text"
-                    {...register("imgDefault2")}
-                  />
+                  {actualCar &&
+                    actualCar?.photos?.map((photo: any) => {
+                      return (
+                        <>
+                          <FormLabel className="font-inter font-medium">
+                            Imagem da galeria
+                          </FormLabel>
+                          <Input
+                            className="w-full border-grey-600 rounded-lg"
+                            type="text"
+                            {...register("photos")}
+                            defaultValue={photo?.photourl}
+                          />
+                        </>
+                      );
+                    })}
                   {imagesNumber ? (
                     <>
                       {imagesNumber.map((e) => (

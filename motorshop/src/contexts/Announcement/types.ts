@@ -75,6 +75,7 @@ export interface iAnnouncementContext {
   editCar: string | undefined;
   setEditCar:React.Dispatch<React.SetStateAction<string>>;
   deleteCars(): Promise<void>;
+  updateImages(data:string, id:string):Promise<void>
 }
 
 export interface iAnnouncementContextProps {

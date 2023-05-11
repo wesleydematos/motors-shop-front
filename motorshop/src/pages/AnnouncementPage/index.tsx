@@ -33,6 +33,7 @@ export default function AnnouncementPage() {
     (async () => {
       try {
         const { data } = await api.get(`vehicles/${id}`);
+        console.log(data);
 
         setCar(data);
         setCarId(id as string);

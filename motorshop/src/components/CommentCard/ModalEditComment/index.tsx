@@ -23,6 +23,7 @@ export default function ModalEditCommnet({ comment }: any) {
     try {
       await api.patch(`/comments/${comment.id}`, dataUpdatedCommnet);
       onClose();
+      window.location.reload()
     } catch (error) {
       console.error(error);
     }

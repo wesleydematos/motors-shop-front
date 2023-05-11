@@ -24,6 +24,7 @@ export default function ModalDeleteCommnet({
     try {
       await api.delete(`/comments/${commentId}`);
       onClose();
+      window.location.reload()
     } catch (error) {
       console.error(error);
     }

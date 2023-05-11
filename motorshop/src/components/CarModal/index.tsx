@@ -97,7 +97,6 @@ export default function CarModal() {
 
     createCars(formatedData);
     onCloseLogin();
-    getUserVehicles();
   };
 
   let carsBrand = Object.keys(carsFipe);

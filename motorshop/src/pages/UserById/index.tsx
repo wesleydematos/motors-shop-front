@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useUserContext } from "../../contexts/User";
-import CardCar from "../Profile/CardCar";
+import CardCar from "../UserById/CardCar";
 import CarModal from "../../components/CarModal";
 import CarEditModal from "../../components/CarEditModal";
 import { ContextModal } from "../../contexts/ModalContext";

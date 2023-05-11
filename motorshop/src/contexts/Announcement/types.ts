@@ -73,7 +73,7 @@ export interface iAnnouncementContext {
   comment: boolean;
   updateCars(data: any): Promise<void>;
   editCar: string | undefined;
-  setEditCar:React.Dispatch<React.SetStateAction<string>>;
+  setEditCar: React.Dispatch<React.SetStateAction<string>>;
   deleteCars(): Promise<void>;
 }
 

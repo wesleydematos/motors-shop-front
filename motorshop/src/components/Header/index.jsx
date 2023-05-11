@@ -10,6 +10,7 @@ export default function Header() {
   const { user, logout } = useUserContext();
   const [open, setOpen] = useState(false);
   const { getAllCars } = useAnnouncementContext();
+  const userLogged = localStorage.getItem("@userID-MotorsShop")?.slice(1, -1);
 
   return (
     <header className="flex justify-between items-center  bg-whiteFixed px-4 tablet:px-16 shadow-md w-full h-20 fixed top-0 left-0  z-20">
@@ -31,7 +32,7 @@ export default function Header() {
               open ? "top-20 " : "top-[-490px]"
             }`}
           >
-            <Link to="/profile">
+            <Link to={`/user/${userLogged}`}>
               <div className="flex items-center mt-3 tablet:mt-0 border-b-2 pb-3 tablet:px-6 border-grey-400 tablet:border-none">
                 <p className="font-['Inter, sans-serif'] text-base font-semibold tablet:ml-10 mr-2 pt-1.5 text-whiteFixed rounded-bl-3xl rounded-tr-3xl  rounded-br-3xl rounded-tl-3xl text-center w-9 h-9 bg-brand-300">
                   {user.name[0].toUpperCase()}

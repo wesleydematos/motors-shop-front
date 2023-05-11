@@ -20,17 +20,14 @@ export default function Profile() {
     userVehicles,
     getUserVehicles,
   } = useUserContext();
-  const { onOpenLogin, onCloseLogin, onCloseEditCar } = useContext(ContextModal);
+  const { onOpenLogin, onCloseLogin, onCloseEditCar } =
+    useContext(ContextModal);
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPage = 34;
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
-
-  useEffect(() => {
-    getUserVehicles();
-  }, [onCloseLogin, onCloseEditCar]);
 
   return (
     <>

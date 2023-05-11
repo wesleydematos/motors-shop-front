@@ -34,7 +34,6 @@ export default function CardCar({ car }: ICardCarProps) {
   const openModal = (id: string) => {
     onOpenEditCar();
     setEditCar(id);
-    console.log(id);
     
   };
 

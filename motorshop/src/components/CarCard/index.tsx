@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 export default function CarCard({ car }: any) {
-  console.log(car);
   return (
     <>
       <Link to={`/vehicles/${car.id}`}>

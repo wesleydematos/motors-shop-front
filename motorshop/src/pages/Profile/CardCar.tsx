@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useUserContext } from "../../contexts/User";
 import { ContextModal } from "../../contexts/ModalContext";
+import { AnnouncementContext } from "../../contexts/Announcement";
 
 interface ICardCarProps {
   car: {
@@ -26,7 +27,16 @@ interface ICardCarProps {
 export default function CardCar({ car }: ICardCarProps) {
   const user = useUserContext().user;
 
-  const { onOpenEditCar  } = useContext(ContextModal);
+  const { onOpenEditCar } = useContext(ContextModal);
+
+  const { setEditCar } = useContext(AnnouncementContext);
+
+  const openModal = (id: string) => {
+    onOpenEditCar();
+    setEditCar(id);
+    console.log(id);
+    
+  };
 
   return (
     <li className="w-[370px] flex-shrink-0 tablet:w-auto">
@@ -47,7 +57,9 @@ export default function CardCar({ car }: ICardCarProps) {
         <strong className="inline-block mt-4 text-grey-1000">
           {car.title}
         </strong>
-        <p className="my-4 text-grey-900 text-sm overflow-hidden text-ellipsis whitespace-nowrap">{car.description}</p>
+        <p className="my-4 text-grey-900 text-sm overflow-hidden text-ellipsis whitespace-nowrap">
+          {car.description}
+        </p>
       </div>
       <div className="flex justify-between items-center">
         <div>
@@ -70,7 +82,7 @@ export default function CardCar({ car }: ICardCarProps) {
         <button
           type="button"
           className="px-4 py-1 text-sm border-[1px] rounded border-grey-1000"
-          onClick={onOpenEditCar}
+          onClick={() => openModal(car.id)}
         >
           Editar
         </button>

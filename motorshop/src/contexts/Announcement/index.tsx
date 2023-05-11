@@ -38,7 +38,7 @@ export const AnnouncementProvider = ({
   const [carId, setCarId] = useState("");
   const [clearInput, setClearInput] = useState("");
   const [comment, setComment] = useState(false);
-  const [editCar, setEditCar] = useState('');
+  const [editCar, setEditCar] = useState("");
 
   async function getCarsFipeUnique(
     carSearchFipe: iCarSearchFipe
@@ -67,7 +67,7 @@ export const AnnouncementProvider = ({
     }
   }
 
-  async function deleteCars():Promise<void> {
+  async function deleteCars(): Promise<void> {
     const token = localStorage.getItem("@Token-MotorsShop");
 
     api.defaults.headers.common.authorization = `Bearer ${token}`;
@@ -395,7 +395,7 @@ export const AnnouncementProvider = ({
         updateCars,
         editCar,
         setEditCar,
-        deleteCars
+        deleteCars,
       }}
     >
       {children}

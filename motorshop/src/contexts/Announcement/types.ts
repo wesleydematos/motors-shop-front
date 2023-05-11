@@ -71,6 +71,10 @@ export interface iAnnouncementContext {
   clearInput: string;
   setClearInput: React.Dispatch<React.SetStateAction<string>>;
   comment: boolean;
+  updateCars(data: any): Promise<void>;
+  editCar: string | undefined;
+  setEditCar:React.Dispatch<React.SetStateAction<string>>;
+  deleteCars(): Promise<void>;
 }
 
 export interface iAnnouncementContextProps {

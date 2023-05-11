@@ -38,6 +38,7 @@ export const AnnouncementProvider = ({
   const [carId, setCarId] = useState("");
   const [clearInput, setClearInput] = useState("");
   const [comment, setComment] = useState(false);
+  const [editCar, setEditCar] = useState('');
 
   async function getCarsFipeUnique(
     carSearchFipe: iCarSearchFipe
@@ -52,12 +53,38 @@ export const AnnouncementProvider = ({
     }
   }
 
-  async function createCars(data: any): Promise<void> {
+  async function updateCars(data: any): Promise<void> {
     const token = localStorage.getItem("@Token-MotorsShop");
 
     api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-    console.log(data);
+    try {
+      await api.patch(`/vehicles/${editCar}`, data);
+      toast.success("Anúncio editado com sucesso!");
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error("Erro ao editar anúncio");
+    }
+  }
+
+  async function deleteCars():Promise<void> {
+    const token = localStorage.getItem("@Token-MotorsShop");
+
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+    try {
+      await api.delete(`/vehicles/${editCar}`);
+      toast.success("Anúncio deletado com sucesso!");
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error("Erro ao deletar anúncio");
+    }
+  }
+
+  async function createCars(data: any): Promise<void> {
+    const token = localStorage.getItem("@Token-MotorsShop");
+
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
 
     try {
       await api.post("/vehicles", data);
@@ -365,6 +392,10 @@ export const AnnouncementProvider = ({
         clearInput,
         setClearInput,
         comment,
+        updateCars,
+        editCar,
+        setEditCar,
+        deleteCars
       }}
     >
       {children}

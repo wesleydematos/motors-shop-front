@@ -39,6 +39,7 @@ export const AnnouncementProvider = ({
   const [clearInput, setClearInput] = useState("");
   const [comment, setComment] = useState(false);
   const [editCar, setEditCar] = useState("");
+  const [reload, setReload] = useState(0);
 
   async function getCarsFipeUnique(
     carSearchFipe: iCarSearchFipe
@@ -53,17 +54,18 @@ export const AnnouncementProvider = ({
     }
   }
 
-  async function updateImages(data:string,id:string): Promise<void>{
+  async function updateImages(data: string, id: string): Promise<void> {
     const token = localStorage.getItem("@Token-MotorsShop");
 
     api.defaults.headers.common.authorization = `Bearer ${token}`;
 
     try {
       await api.patch(`/photos/${id}`, data);
-      toast.success("imagem editada com sucesso!");
     } catch (error: any) {
       console.error(error.message);
       toast.error("Erro ao editar imagem");
+    } finally {
+      toast.success("imagem editada com sucesso!");
     }
   }
 
@@ -75,6 +77,7 @@ export const AnnouncementProvider = ({
     try {
       await api.patch(`/vehicles/${editCar}`, data);
       toast.success("Anúncio editado com sucesso!");
+      setReload(reload + 1);
     } catch (error: any) {
       console.error(error.message);
       toast.error("Erro ao editar anúncio");
@@ -89,6 +92,7 @@ export const AnnouncementProvider = ({
     try {
       await api.delete(`/vehicles/${editCar}`);
       toast.success("Anúncio deletado com sucesso!");
+      setReload(reload + 1);
     } catch (error: any) {
       console.error(error.message);
       toast.error("Erro ao deletar anúncio");
@@ -103,6 +107,7 @@ export const AnnouncementProvider = ({
     try {
       await api.post("/vehicles", data);
       toast.success("Anúncio criado com sucesso!");
+      setReload(reload + 1);
     } catch (error: any) {
       console.error(error.message);
       toast.error("Erro ao criar anúncio");
@@ -410,7 +415,8 @@ export const AnnouncementProvider = ({
         editCar,
         setEditCar,
         deleteCars,
-        updateImages
+        updateImages,
+        reload,
       }}
     >
       {children}

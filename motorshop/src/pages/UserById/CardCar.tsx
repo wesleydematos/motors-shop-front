@@ -90,12 +90,14 @@ export default function CardCar({ car }: ICardCarProps) {
         >
           Editar
         </button>
-        <button
-          type="button"
-          className="px-4 py-1 text-sm border rounded border-grey-1000 ml-4"
-        >
-          Ver detalhes
-        </button>
+        <Link to={`/vehicles/${car.id}`}>
+          <button
+            type="button"
+            className="px-4 py-1 text-sm border rounded border-grey-1000 ml-4"
+          >
+            Ver detalhes
+          </button>
+        </Link>
       </div>
     </li>
   );

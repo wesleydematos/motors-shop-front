@@ -12,11 +12,15 @@ import UpdateUserModal from "../../components/UpdateUserModal";
 import { api } from "../../services/api";
 import { Link, useParams } from "react-router-dom";
 import { IVehicleResponse } from "../../contexts/User/types";
+import { AnnouncementContext } from "../../contexts/Announcement";
 
 export default function UserById() {
   const { onAddressMod, setOnAddressMod, onUserUpdateMod, setOnUserUpdateMod } =
     useUserContext();
-  const { onOpenLogin, onCloseLogin } = useContext(ContextModal);
+  const { onOpenLogin, onCloseLogin } =
+    useContext(ContextModal);
+
+  const {reload} = useContext(AnnouncementContext)
 
   const { userId } = useParams();
 
@@ -42,9 +46,13 @@ export default function UserById() {
     }
   }
 
-  useEffect(() => {
+  useEffect(() => {   
     getUser();
   }, [onCloseLogin]);
+
+  useEffect(() => {
+    getUser();
+  }, [reload]);
 
   if (!user) {
     return (

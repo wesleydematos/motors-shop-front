@@ -36,7 +36,7 @@ export default function CarEditModal() {
     updateCars,
   } = useContext(AnnouncementContext);
 
-  const { getUserVehicles } = useUserContext();
+  const [isActive, setIsActive] = useState<string | boolean>('') 
 
   const fuels = [
     { id: 1, fuel: "FLEX" },
@@ -98,9 +98,13 @@ export default function CarEditModal() {
     if (data.bellowFipe?.length! > 0) {
       updateCars({ bellowFipe: carsFipeValue > data.price });
     }
+    if(typeof isActive==='boolean'){
+      updateCars({isActive: isActive})
+    }
 
+    
     onCloseEditCar();
-    getUserVehicles();
+    
   };
 
   const deleteCar = () => {
@@ -253,11 +257,11 @@ export default function CarEditModal() {
                     className="w-1/2"
                     bg={"white"}
                     border={`1px solid ${Colors.grey2}`}
+                    onClick={()=>setIsActive(true)}
                   >
-                    {" "}
-                    Sim{" "}
+                    Sim
                   </Button>
-                  <Button className="w-1/2" color={"white"} bg={Colors.brand1}>
+                  <Button className="w-1/2" color={"white"} bg={Colors.brand1} onClick={()=>setIsActive(false)}>
                     Não
                   </Button>
                 </div>

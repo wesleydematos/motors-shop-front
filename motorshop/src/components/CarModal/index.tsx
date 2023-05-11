@@ -67,6 +67,16 @@ export default function CarModal() {
   };
 
   const onSubmit = (data: any) => {
+    const inputs = document.querySelectorAll(".photoUrl");
+    const arrayInputs = Array.from(inputs);
+    const arrayPhotos:any = [];
+
+    arrayInputs.forEach((input: any) => {
+      if (input.value) {
+        arrayPhotos.push(input.value);
+      }
+    });
+
     let formatedData = {
       brand: data.brand,
       model: data.model,
@@ -81,7 +91,7 @@ export default function CarModal() {
       title: data.model,
       fipe: String(carsFipeValue),
       photos: {
-        photourl: [data.imgDefault1, data.imgDefault2],
+        photourl: [...arrayPhotos],
       },
     };
 
@@ -232,7 +242,7 @@ export default function CarModal() {
                     1ª imagem da galeria
                   </FormLabel>
                   <Input
-                    className="w-full border-grey-600 rounded-lg"
+                    className="w-full border-grey-600 rounded-lg photoUrl"
                     type="text"
                     {...register("imgDefault1")}
                   />
@@ -240,7 +250,7 @@ export default function CarModal() {
                     2ª imagem da galeria
                   </FormLabel>
                   <Input
-                    className="w-full border-grey-600 rounded-lg"
+                    className="w-full border-grey-600 rounded-lg photoUrl"
                     type="text"
                     {...register("imgDefault2")}
                   />
@@ -252,7 +262,7 @@ export default function CarModal() {
                             imagem extra
                           </FormLabel>
                           <Input
-                            className="w-full border-grey-600 rounded-lg"
+                            className="w-full border-grey-600 rounded-lg photoUrl"
                             type="text"
                             {...register(`imgExtra${i}`)}
                           />

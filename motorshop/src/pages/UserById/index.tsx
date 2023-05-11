@@ -43,8 +43,6 @@ export default function UserById() {
   }
 
   useEffect(() => {
-    console.log(userId);
-    console.log(userLogged);
     getUser();
   }, [onCloseLogin]);
 

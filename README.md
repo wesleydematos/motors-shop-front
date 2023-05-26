@@ -83,6 +83,8 @@ Para os vendedores, oferecemos uma maneira fácil e segura de anunciar seus carr
 
 `Documentação da API:` https://github.com/grupo24-t13-marcelo/back-end
 
+`Deploy:` https://motor-shop-front.vercel.app/
+
 `Figma:` https://www.figma.com/file/KX3C3fIi8zmCRpNipxIYYF/M6---E-Commerce-Filter?node-id=21239-6550&t=tMmOD3e3HsC49yKy-0
 
 <hr>
